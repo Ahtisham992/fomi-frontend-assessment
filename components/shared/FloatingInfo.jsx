@@ -25,7 +25,7 @@ export function FloatingInfo() {
   const content = getInfoContent();
 
   return (
-    <div className="hidden md:block fixed bottom-6 right-6 z-[100]">
+    <div className="fixed top-24 right-4 sm:top-auto sm:bottom-6 sm:right-6 z-[100]">
       <AnimatePresence>
         {isOpen && (
           <motion.div
