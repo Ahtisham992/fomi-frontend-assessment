@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { Dropdown } from "@/components/ui/dropdown";
 import { Modal } from "@/components/ui/modal";
 import { useToast } from "@/components/ui/toast";
+import { Menu } from "lucide-react";
 
 export function Header() {
   const pathname = usePathname();
@@ -17,16 +18,30 @@ export function Header() {
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
 
   const profileItems = [
-    { label: "Generate (Mobile)", className: "sm:hidden", onClick: () => router.push("/generate") },
-    { label: "Workspace (Mobile)", className: "sm:hidden border-b border-border-subtle", onClick: () => router.push("/workspace") },
     { label: "Profile", icon: <User className="h-4 w-4" />, onClick: () => toast({ title: "Profile", description: "Navigating to profile... (Mocked)" }) },
     { label: "Billing", icon: <CreditCard className="h-4 w-4" />, onClick: () => toast({ title: "Billing", description: "Navigating to billing... (Mocked)" }) },
     { label: "Sign Out", icon: <LogOut className="h-4 w-4" />, onClick: () => toast({ title: "Signed out", description: "Signed out — demo mode" }) },
   ];
 
+  const mobileNavItems = [
+    { label: "Generate", onClick: () => router.push("/generate") },
+    { label: "Workspace", onClick: () => router.push("/workspace") },
+  ];
+
   return (
-    <header className="flex h-16 items-center justify-between border-b border-border-default px-6 bg-surface-default shrink-0 z-[100] relative">
-      <div className="flex items-center gap-6 relative z-50">
+    <header className="flex h-16 items-center justify-between border-b border-border-default px-4 sm:px-6 bg-surface-default shrink-0 z-[100] relative">
+      <div className="flex items-center gap-3 sm:gap-6 relative z-50">
+        <div className="sm:hidden block">
+          <Dropdown
+            align="left"
+            items={mobileNavItems}
+            trigger={
+              <Button variant="ghost" size="icon" className="h-10 w-10 p-0 rounded-md">
+                <Menu className="h-5 w-5 text-text-primary" />
+              </Button>
+            }
+          />
+        </div>
         <div className="flex items-center gap-3 text-text-primary">
           <div className="flex items-center justify-center">
             <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +57,7 @@ export function Header() {
               </defs>
             </svg>
           </div>
-          <span className="text-2xl font-semibold tracking-tight font-[family-name:var(--font-outfit)]">Fomi</span>
+          <span className="text-xl sm:text-2xl font-semibold tracking-tight font-[family-name:var(--font-outfit)]">Fomi</span>
         </div>
       </div>
 
