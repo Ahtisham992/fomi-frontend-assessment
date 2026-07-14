@@ -61,9 +61,9 @@ export function ControlPanel({
               onClick={onGenerate} 
               disabled={!prompt.trim() || isGenerating}
               isLoading={isGenerating}
-              className="w-full sm:w-auto sm:px-8 font-semibold shadow-md shrink-0"
+              className="w-full sm:w-auto sm:px-8 h-12 font-semibold shadow-md shrink-0"
             >
-              {!isGenerating && <Sparkles className="mr-2 h-4 w-4" />}
+              {!isGenerating && <Sparkles className="mr-2 h-5 w-5" />}
               Generate
             </Button>
           </div>

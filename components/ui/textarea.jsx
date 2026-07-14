@@ -17,7 +17,7 @@ const Textarea = React.forwardRef(({ className, label, error, helperText, id, ..
         id={textareaId}
         ref={ref}
         className={cn(
-          "flex min-h-[80px] w-full rounded-md border bg-surface-default px-3 py-2 text-sm text-text-primary transition-colors",
+          "flex min-h-[60px] w-full rounded-[2rem] border bg-surface-default px-6 py-3 text-sm text-text-primary transition-colors",
           "placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y",
           error 
             ? "border-state-error focus-visible:ring-state-error/50" 
