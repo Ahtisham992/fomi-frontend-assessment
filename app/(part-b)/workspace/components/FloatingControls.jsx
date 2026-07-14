@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { MousePointer2, Brush, Eraser, Undo2, ArrowLeftRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export function FloatingControls({ activeTool, setActiveTool }) {
+export function FloatingControls({ activeTool, setActiveTool, onUndo }) {
   const tools = [
     { id: 'select', icon: MousePointer2, label: 'Select' },
-    { id: 'brush', icon: Brush, label: 'Brush to Prompt' },
+    { id: 'brush', icon: Brush, label: 'Freehand Masking' },
     { id: 'eraser', icon: Eraser, label: 'Eraser' },
   ];
 
@@ -38,7 +38,7 @@ export function FloatingControls({ activeTool, setActiveTool }) {
       </div>
       <div className="h-6 w-px bg-border-strong mx-1" />
       <div className="flex items-center gap-1">
-        <button className="flex h-10 w-10 items-center justify-center rounded-full text-text-secondary hover:bg-surface-hover hover:text-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-default">
+        <button onClick={onUndo} title="Undo" className="flex h-10 w-10 items-center justify-center rounded-full text-text-secondary hover:bg-surface-hover hover:text-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-default">
           <Undo2 className="h-4 w-4" />
         </button>
         <button className="flex h-10 w-10 items-center justify-center rounded-full text-text-secondary hover:bg-surface-hover hover:text-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-default">

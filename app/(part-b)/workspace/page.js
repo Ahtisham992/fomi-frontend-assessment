@@ -60,6 +60,8 @@ export default function WorkspacePage() {
     }
   };
 
+  const canvasRef = React.useRef(null);
+
   return (
     <div className="flex h-screen w-full flex-col bg-background overflow-hidden">
       <Header />
@@ -73,10 +75,12 @@ export default function WorkspacePage() {
         <main className="relative flex-1 flex flex-col min-w-0 bg-background">
           <div className="flex flex-1 overflow-hidden relative">
             <InteractiveCanvas 
+              ref={canvasRef}
               currentAsset={currentAsset} 
               isGenerating={isGenerating}
               onGenerateEdit={handleGenerateEdit}
               activeTool={activeTool}
+              brushStrength={brushStrength}
             />
             <PropertiesPanel 
               activeTool={activeTool}
@@ -87,6 +91,7 @@ export default function WorkspacePage() {
           <FloatingControls 
             activeTool={activeTool} 
             setActiveTool={setActiveTool} 
+            onUndo={() => canvasRef.current?.undo()}
           />
         </main>
       </div>

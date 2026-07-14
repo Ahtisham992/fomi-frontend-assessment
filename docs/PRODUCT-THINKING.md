@@ -22,4 +22,4 @@ I drew inspiration from **Figma** (for its floating, unobtrusive toolbars that m
 3. **Local History/Versioning:** A proper branching history tree so users can explore multiple variations of an edit without losing their previous state.
 
 ## 6. What single feature/workflow differentiates your workspace from existing platforms?
-The **Brush-to-Prompt Contextual Editing Workflow**. In standard platforms, you mask an area, then go back to the sidebar to type a prompt and hit generate. In this workspace, immediately after brushing an area, a contextual input pops up right at the cursor. The user types their change and hits Enter without their eyes or mouse ever leaving the canvas area. It creates a seamless, uninterrupted creative loop.
+The **Freehand Mask-to-Prompt Contextual Workflow**. In standard platforms, you mask an area, then go back to the sidebar to type a prompt and hit generate. In this workspace, immediately after painting a freehand mask, a contextual input pops up right below the masked area. The user types their change and hits Enter without their eyes or mouse ever leaving the canvas area. It creates a seamless, uninterrupted creative loop.
