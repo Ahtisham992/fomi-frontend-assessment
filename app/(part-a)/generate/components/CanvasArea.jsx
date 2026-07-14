@@ -1,0 +1,91 @@
+import * as React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Image as ImageIcon, AlertCircle } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+
+export function CanvasArea({ status, result, error, onRetry }) {
+  return (
+    <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-background p-4 md:p-8">
+      <AnimatePresence mode="wait">
+        {status === "idle" && (
+          <motion.div
+            key="idle"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="flex flex-col items-center gap-4 text-center"
+          >
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-surface-active shadow-sm">
+              <ImageIcon className="h-8 w-8 text-text-muted" />
+            </div>
+            <div className="max-w-sm">
+              <h2 className="text-xl font-semibold text-text-primary">What will you create today?</h2>
+              <p className="mt-2 text-sm text-text-muted">Enter a prompt below to generate a high-quality AI asset.</p>
+            </div>
+          </motion.div>
+        )}
+
+        {status === "loading" && (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            className="flex w-full max-w-3xl flex-col items-center justify-center aspect-square md:aspect-video rounded-xl border border-border-subtle bg-surface-default shadow-md overflow-hidden relative"
+          >
+            <Skeleton className="h-full w-full absolute inset-0 rounded-none" />
+            <div className="relative flex flex-col items-center justify-center pointer-events-none z-10 bg-surface-default/50 p-6 rounded-2xl backdrop-blur-sm border border-border-subtle">
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-surface-active border-t-accent-default" />
+              <p className="mt-4 text-sm font-medium text-text-primary animate-pulse">Generating masterpiece...</p>
+            </div>
+          </motion.div>
+        )}
+
+        {status === "error" && (
+          <motion.div
+            key="error"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="flex w-full max-w-md flex-col items-center gap-4 rounded-xl border border-state-error/20 bg-state-error/5 p-8 text-center shadow-sm"
+          >
+            <AlertCircle className="h-10 w-10 text-state-error" />
+            <div>
+              <h3 className="font-semibold text-text-primary">Generation Failed</h3>
+              <p className="mt-2 text-sm text-text-muted">{error || "Something went wrong. Please try again."}</p>
+            </div>
+            <Button variant="primary" onClick={onRetry} className="mt-2">
+              Retry Generation
+            </Button>
+          </motion.div>
+        )}
+
+        {status === "success" && result && (
+          <motion.div
+            key="success"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="relative flex h-full w-full items-center justify-center"
+          >
+            <div className="relative overflow-hidden rounded-xl border border-border-default shadow-xl max-h-full max-w-full">
+              <img
+                src={result.url}
+                alt={result.prompt}
+                className="max-h-full max-w-full object-contain"
+                loading="lazy"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 md:p-6 opacity-0 transition-opacity duration-300 hover:opacity-100">
+                <p className="text-sm font-medium text-white line-clamp-2 shadow-sm">{result.prompt}</p>
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="rounded-md bg-white/20 px-2 py-1 text-xs text-white backdrop-blur-md">{result.model}</span>
+                  <span className="rounded-md bg-white/20 px-2 py-1 text-xs text-white backdrop-blur-md">{result.aspectRatio}</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
