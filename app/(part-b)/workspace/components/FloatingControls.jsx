@@ -15,7 +15,7 @@ export function FloatingControls({ activeTool, setActiveTool, onUndo }) {
       initial={{ y: 50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className="fixed bottom-8 left-[calc(50%+128px)] -translate-x-1/2 flex items-center gap-2 rounded-full border border-border-default bg-surface-default/80 p-1.5 shadow-2xl backdrop-blur-xl z-40"
+      className="fixed bottom-8 left-1/2 lg:left-[calc(50%+128px)] -translate-x-1/2 flex items-center gap-2 rounded-full border border-border-default bg-surface-default/80 p-1.5 shadow-2xl backdrop-blur-xl z-40"
     >
       <div className="flex items-center gap-1">
         {tools.map(tool => {
