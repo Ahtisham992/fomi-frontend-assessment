@@ -59,13 +59,20 @@ export function CanvasArea({ status, result, error, onRetry, onTryPrompt, aspect
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
-            className="flex w-full max-w-3xl flex-col items-center justify-center aspect-square md:aspect-video rounded-xl border border-border-subtle bg-surface-default shadow-md overflow-hidden relative"
+            className="relative flex h-full w-full max-w-6xl items-center justify-center p-4 pb-40"
           >
-            <Skeleton className="h-full w-full absolute inset-0 rounded-none" />
-            <div className="relative flex flex-col items-center justify-center pointer-events-none z-10 bg-surface-default/50 p-6 rounded-2xl backdrop-blur-sm border border-border-subtle">
-              <div className="h-8 w-8 animate-spin rounded-full border-4 border-surface-active border-t-accent-default" />
-              <p className="mt-4 text-sm font-medium text-text-primary animate-pulse">Generating masterpiece...</p>
-            </div>
+            <motion.div 
+              layout
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              style={{ aspectRatio: aspectRatio.replace(':', '/') }}
+              className="relative flex flex-col items-center justify-center max-h-full w-full md:w-auto md:h-full max-w-full overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-border-subtle shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] group bg-surface-default"
+            >
+              <Skeleton className="absolute inset-0 h-full w-full rounded-none" />
+              <div className="relative flex flex-col items-center justify-center pointer-events-none z-10 bg-surface-default/80 p-6 rounded-2xl backdrop-blur-md border border-border-subtle shadow-xl">
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-surface-active border-t-accent-default" />
+                <p className="mt-4 text-sm font-medium text-text-primary animate-pulse">Generating masterpiece...</p>
+              </div>
+            </motion.div>
           </motion.div>
         )}
 
