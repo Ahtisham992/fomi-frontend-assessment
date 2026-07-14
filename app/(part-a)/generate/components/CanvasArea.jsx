@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-export function CanvasArea({ status, result, error, onRetry, onTryPrompt }) {
+export function CanvasArea({ status, result, error, onRetry, onTryPrompt, aspectRatio }) {
   return (
     <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-background p-4 md:p-8">
       
