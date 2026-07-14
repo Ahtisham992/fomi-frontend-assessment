@@ -28,5 +28,45 @@
     "aspectRatio": "4:3",
     "createdAt": "2026-07-13T18:45:00Z",
     "status": "completed"
+  },
+  {
+    "id": "gen-004",
+    "url": "/mock-assets/sample4.png",
+    "thumbnailUrl": "/mock-assets/sample4.png",
+    "prompt": "A photorealistic portrait of an astronaut on Mars with vivid red sand and a futuristic base in the background",
+    "model": "fomi-v2-hq",
+    "aspectRatio": "1:1",
+    "createdAt": "2026-07-14T10:20:00Z",
+    "status": "completed"
+  },
+  {
+    "id": "gen-005",
+    "url": "/mock-assets/sample5.png",
+    "thumbnailUrl": "/mock-assets/sample5.png",
+    "prompt": "A cozy, sunlit modern kitchen with marble countertops and floating shelves with plants",
+    "model": "fomi-v1-fast",
+    "aspectRatio": "1:1",
+    "createdAt": "2026-07-14T11:05:00Z",
+    "status": "completed"
+  },
+  {
+    "id": "gen-006",
+    "url": "/mock-assets/sample6.png",
+    "thumbnailUrl": "/mock-assets/sample6.png",
+    "prompt": "A magical, ethereal forest with giant glowing mushrooms and tiny fairies flying around",
+    "model": "fomi-v2-hq",
+    "aspectRatio": "1:1",
+    "createdAt": "2026-07-14T12:15:00Z",
+    "status": "completed"
+  },
+  {
+    "id": "gen-007",
+    "url": "/mock-assets/sample7.png",
+    "thumbnailUrl": "/mock-assets/sample7.png",
+    "prompt": "A sleek concept sports car driving through a neon-lit cyberpunk city in the rain",
+    "model": "fomi-v2-hq",
+    "aspectRatio": "1:1",
+    "createdAt": "2026-07-14T14:45:00Z",
+    "status": "completed"
   }
 ]
