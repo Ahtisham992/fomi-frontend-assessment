@@ -8,6 +8,17 @@ import Image from "next/image";
 export function CanvasArea({ status, result, error, onRetry, onTryPrompt }) {
   return (
     <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-background p-4 md:p-8">
+      
+      {/* Top Loading Bar */}
+      {status === "loading" && (
+        <motion.div
+          initial={{ width: "0%" }}
+          animate={{ width: "80%" }}
+          transition={{ duration: 4, ease: "easeOut" }}
+          className="absolute top-0 left-0 h-1 bg-accent-default z-50 shadow-[0_0_10px_var(--accent-default)]"
+        />
+      )}
+
       <AnimatePresence mode="wait">
         {status === "idle" && (
           <motion.div
@@ -15,20 +26,29 @@ export function CanvasArea({ status, result, error, onRetry, onTryPrompt }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="flex flex-col items-center gap-6 text-center max-w-lg mx-auto"
+            className="flex flex-col items-center gap-8 text-center max-w-xl mx-auto relative z-10"
           >
-            <div className="relative flex h-24 w-24 items-center justify-center rounded-3xl bg-surface-active shadow-sm overflow-hidden">
+            {/* Ambient Radial Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent-default/15 rounded-full blur-[100px] -z-10 pointer-events-none" />
+
+            <div className="relative flex h-24 w-24 items-center justify-center rounded-[2rem] bg-surface-active shadow-xl overflow-hidden border border-border-subtle/50">
               <div className="absolute inset-0 bg-gradient-to-br from-accent-default/20 to-transparent" />
-              <ImageIcon className="h-10 w-10 text-text-muted relative z-10" />
+              <ImageIcon className="h-10 w-10 text-accent-default/80 relative z-10" />
             </div>
-            <div>
-              <h2 className="text-2xl font-bold text-text-primary tracking-tight">What will you create today?</h2>
-              <p className="mt-2 text-sm text-text-muted">Enter a prompt below to generate a high-quality AI asset.</p>
+            
+            <div className="space-y-3">
+              <h2 className="text-[2.5rem] leading-tight font-semibold text-text-primary tracking-tight font-[family-name:var(--font-outfit)]">
+                Figment of My Imagination
+              </h2>
+              <p className="text-base font-light text-text-secondary max-w-md mx-auto">
+                Enter a prompt below to generate a high-quality AI asset.
+              </p>
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
-              <span className="text-xs font-medium text-text-muted uppercase tracking-wider mr-2">Try:</span>
-              <button onClick={() => onTryPrompt?.("A firefly on a wet leaf")} className="px-3 py-1.5 rounded-full border border-border-default bg-surface-default text-xs text-text-secondary hover:text-text-primary hover:border-text-muted transition-colors">A firefly on a wet leaf</button>
-              <button onClick={() => onTryPrompt?.("Cyberpunk city skyline at sunset")} className="px-3 py-1.5 rounded-full border border-border-default bg-surface-default text-xs text-text-secondary hover:text-text-primary hover:border-text-muted transition-colors">Cyberpunk city skyline at sunset</button>
+
+            <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
+              <span className="text-xs font-semibold text-text-muted uppercase tracking-widest mr-1">Try:</span>
+              <button onClick={() => onTryPrompt?.("A firefly on a wet leaf")} className="px-4 py-2 rounded-full border border-border-default bg-surface-default/50 backdrop-blur-sm text-sm font-medium text-text-secondary hover:text-text-primary hover:border-accent-default/50 hover:bg-surface-active transition-all">A firefly on a wet leaf</button>
+              <button onClick={() => onTryPrompt?.("Cyberpunk city skyline at sunset")} className="px-4 py-2 rounded-full border border-border-default bg-surface-default/50 backdrop-blur-sm text-sm font-medium text-text-secondary hover:text-text-primary hover:border-accent-default/50 hover:bg-surface-active transition-all">Cyberpunk city skyline at sunset</button>
             </div>
           </motion.div>
         )}
@@ -73,21 +93,21 @@ export function CanvasArea({ status, result, error, onRetry, onTryPrompt }) {
             key="success"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative flex h-full w-full items-center justify-center"
+            className="relative flex h-full w-full max-w-5xl flex-col items-center justify-center gap-4"
           >
-            <div className="relative overflow-hidden rounded-xl border border-border-default shadow-xl w-full h-full min-h-[500px]">
-              <Image
-                src={result.url}
-                alt={result.prompt}
+            <div className="relative flex-1 w-full overflow-hidden rounded-[2rem] border border-border-subtle shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] group">
+              <Image 
+                src={result.url} 
+                alt={result.prompt} 
                 fill
                 className="object-contain"
-                sizes="(max-width: 1024px) 100vw, 1024px"
+                priority
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 md:p-6 opacity-0 transition-opacity duration-300 hover:opacity-100">
-                <p className="text-sm font-medium text-white line-clamp-2 shadow-sm">{result.prompt}</p>
-                <div className="mt-3 flex items-center gap-2">
-                  <span className="rounded-md bg-white/20 px-2 py-1 text-xs text-white backdrop-blur-md">{result.model}</span>
-                  <span className="rounded-md bg-white/20 px-2 py-1 text-xs text-white backdrop-blur-md">{result.aspectRatio}</span>
+              <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <p className="text-white font-medium text-lg leading-snug">{result.prompt}</p>
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-white/20 text-white backdrop-blur-md">Generated</span>
+                  <span className="text-xs text-white/70">{result.model}</span>
                 </div>
               </div>
             </div>

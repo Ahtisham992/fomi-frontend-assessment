@@ -35,29 +35,32 @@
   /* Ease */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* Fonts */
+  --font-outfit: var(--font-outfit);
 }
 
 :root {
   /* Default to dark mode palette for a professional creative tool */
-  --background: #09090b;
+  --background: #171615;
   --foreground: #fafafa;
   
-  --surface-default: #18181b;
-  --surface-hover: #27272a;
-  --surface-active: #3f3f46;
+  --surface-default: #23211f;
+  --surface-hover: #312e2b;
+  --surface-active: #4a4541;
   
-  --border-subtle: #27272a;
-  --border-default: #3f3f46;
-  --border-strong: #52525b;
+  --border-subtle: #312e2b;
+  --border-default: #4a4541;
+  --border-strong: #615a55;
 
   --text-primary: #fafafa;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
   --text-inverse: #09090b;
   
-  --accent-default: #6366f1;
-  --accent-hover: #4f46e5;
-  --accent-muted: #3730a3;
+  --accent-default: #E8683D;
+  --accent-hover: #F2734A;
+  --accent-muted: #C14D25;
   
   --state-success: #10b981;
   --state-error: #ef4444;

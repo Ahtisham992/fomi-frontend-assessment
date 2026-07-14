@@ -18,7 +18,7 @@ export function HistoryPanel({ history, isLoading, onSelect, selectedId }) {
       <div className="flex-1 overflow-y-auto p-3 space-y-3 custom-scrollbar">
         {isLoading ? (
           Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="aspect-square w-full rounded-lg" />
+            <Skeleton key={i} className="aspect-square w-full rounded-2xl" />
           ))
         ) : (
           history.map((item) => (
@@ -26,8 +26,8 @@ export function HistoryPanel({ history, isLoading, onSelect, selectedId }) {
               key={item.id}
               onClick={() => onSelect(item)}
               className={cn(
-                "group relative aspect-square w-full overflow-hidden rounded-lg border-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-default",
-                selectedId === item.id ? "border-accent-default" : "border-transparent hover:border-border-default"
+                "group relative aspect-square w-full overflow-hidden rounded-2xl border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-default shadow-[0_8px_20px_-8px_rgba(0,0,0,0.5)] hover:shadow-[0_12px_30px_-10px_rgba(232,104,61,0.2)]",
+                selectedId === item.id ? "border-accent-default" : "border-transparent"
               )}
             >
               <Image 
@@ -35,10 +35,15 @@ export function HistoryPanel({ history, isLoading, onSelect, selectedId }) {
                 alt={item.prompt}
                 fill
                 sizes="256px"
-                className="object-cover transition-transform duration-300 group-hover:scale-105" 
+                className="object-cover transition-all duration-500 group-hover:scale-[1.03] group-hover:brightness-110" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100 flex items-end p-3">
-                <p className="text-xs text-white line-clamp-2 text-left font-medium leading-snug">{item.prompt}</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex flex-col justify-between p-3">
+                <div className="flex justify-start">
+                  <span className="px-2 py-1 rounded-full bg-black/40 backdrop-blur-md text-[10px] font-bold tracking-widest uppercase text-white/90 border border-white/10">
+                    Image Edit
+                  </span>
+                </div>
+                <p className="text-xs text-white line-clamp-2 text-left font-medium leading-snug drop-shadow-md">{item.prompt}</p>
               </div>
             </button>
           ))
