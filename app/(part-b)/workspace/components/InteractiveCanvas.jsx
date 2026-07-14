@@ -71,28 +71,25 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit }
   } : null;
 
   return (
-    <div 
-      className="relative flex-1 flex items-center justify-center bg-[#09090b] overflow-hidden p-8"
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerLeave={handlePointerUp}
-    >
+    <div className="relative flex-1 flex items-center justify-center bg-[#09090b] overflow-hidden p-8">
       <div 
         ref={containerRef}
-        className="relative max-w-full max-h-full rounded-md shadow-[0_0_40px_rgba(0,0,0,0.5)] touch-none select-none"
+        className="relative inline-flex max-w-full max-h-[85vh] rounded-md shadow-[0_0_40px_rgba(0,0,0,0.5)] touch-none select-none"
         style={{ cursor: showPrompt || isGenerating ? "default" : "crosshair" }}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerLeave={handlePointerUp}
       >
-        <div className="relative w-full h-[85vh]">
-          <Image 
-            src={currentAsset.url} 
-            alt={currentAsset.prompt} 
-            fill
-            className="object-contain rounded-md"
-            draggable={false}
-            priority
-          />
-        </div>
+        <Image 
+          src={currentAsset.url} 
+          alt={currentAsset.prompt} 
+          width={1024}
+          height={1024}
+          className="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-md"
+          draggable={false}
+          priority
+        />
 
         {/* Drawn Bounding Box */}
         <AnimatePresence>

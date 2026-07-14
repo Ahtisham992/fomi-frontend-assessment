@@ -4,6 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Sparkles, Clock, LayoutGrid } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 export function HistoryPanel({ history, isLoading, onSelect, selectedId }) {
   return (
@@ -15,6 +16,17 @@ export function HistoryPanel({ history, isLoading, onSelect, selectedId }) {
         <span className="font-semibold text-text-primary">Fomi Workspace</span>
       </div>
       
+      <div className="p-3 border-b border-border-default">
+        <div className="flex flex-col gap-1 bg-surface-active p-1 rounded-lg border border-border-subtle">
+          <Link href="/generate" className="px-3 py-2 text-sm font-medium rounded-md text-text-secondary hover:text-text-primary hover:bg-surface-hover transition-colors text-left w-full">
+            Generate (Part A)
+          </Link>
+          <div className="px-3 py-2 text-sm font-medium rounded-md bg-surface-default text-text-primary shadow-sm w-full">
+            Workspace (Part B)
+          </div>
+        </div>
+      </div>
+
       <div className="flex items-center justify-between px-4 py-3 border-b border-border-subtle">
         <div className="flex items-center gap-2 text-sm font-medium text-text-secondary">
           <Clock className="h-4 w-4" />
