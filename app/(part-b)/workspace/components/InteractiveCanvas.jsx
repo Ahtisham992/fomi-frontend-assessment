@@ -152,8 +152,9 @@ export const InteractiveCanvas = React.forwardRef(function InteractiveCanvas({ c
     e.target.releasePointerCapture(e.pointerId);
     setIsDrawing(false);
     
-    if (currentStrokeRef.current && currentStrokeRef.current.points.length > 0) {
-      setStrokes(prev => [...prev, currentStrokeRef.current]);
+    const finishedStroke = currentStrokeRef.current;
+    if (finishedStroke && finishedStroke.points.length > 0) {
+      setStrokes(prev => [...prev, finishedStroke]);
     }
     currentStrokeRef.current = null;
     
