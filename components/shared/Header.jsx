@@ -4,7 +4,7 @@ import * as React from "react";
 import { User, Settings, LogOut, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Dropdown } from "@/components/ui/dropdown";
 import { Modal } from "@/components/ui/modal";
@@ -12,10 +12,13 @@ import { useToast } from "@/components/ui/toast";
 
 export function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const { toast } = useToast();
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
 
   const profileItems = [
+    { label: "Generate (Mobile)", className: "sm:hidden", onClick: () => router.push("/generate") },
+    { label: "Workspace (Mobile)", className: "sm:hidden border-b border-border-subtle", onClick: () => router.push("/workspace") },
     { label: "Profile", icon: <User className="h-4 w-4" />, onClick: () => toast({ title: "Profile", description: "Navigating to profile... (Mocked)" }) },
     { label: "Billing", icon: <CreditCard className="h-4 w-4" />, onClick: () => toast({ title: "Billing", description: "Navigating to billing... (Mocked)" }) },
     { label: "Sign Out", icon: <LogOut className="h-4 w-4" />, onClick: () => toast({ title: "Signed out", description: "Signed out — demo mode" }) },

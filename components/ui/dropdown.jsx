@@ -100,7 +100,7 @@ export function Dropdown({ trigger, items, align = "right", className }) {
                   handleClose();
                   triggerRef.current?.focus();
                 }}
-                className="flex w-full items-center px-4 py-2 text-sm text-text-primary hover:bg-surface-hover transition-colors"
+                className={cn("flex w-full items-center px-4 py-2 text-sm text-text-primary hover:bg-surface-hover transition-colors", item.className)}
                 role="menuitem"
               >
                 {item.icon && <span className="mr-2 text-text-muted">{item.icon}</span>}
