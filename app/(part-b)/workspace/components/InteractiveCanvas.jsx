@@ -1,6 +1,6 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Loader2, Sparkles, Wand2, X } from "lucide-react";
+import { Loader2, Sparkles, Wand2, X, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
@@ -144,12 +144,11 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit, 
                       value={prompt}
                       onChange={e => setPrompt(e.target.value)}
                     />
-                    <div className="flex items-center gap-1">
-                      <Button type="button" variant="ghost" size="icon" className="h-8 w-8 shrink-0 rounded-lg text-text-muted hover:text-text-primary" onClick={cancelSelection}>
+                      <Button type="button" variant="ghost" className="h-8 w-8 p-0 shrink-0 rounded-lg text-text-muted hover:text-text-primary flex items-center justify-center" onClick={cancelSelection}>
                         <X className="h-4 w-4" />
                       </Button>
-                      <Button type="submit" variant="primary" size="icon" className="h-8 w-8 shrink-0 rounded-lg">
-                        <Sparkles className="h-4 w-4" />
+                      <Button type="submit" variant="primary" className="h-8 w-8 p-0 shrink-0 !rounded-lg flex items-center justify-center">
+                        <Check className="h-4 w-4" />
                       </Button>
                     </div>
                   </form>
