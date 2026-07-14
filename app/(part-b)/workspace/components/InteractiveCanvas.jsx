@@ -144,6 +144,7 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit, 
                       value={prompt}
                       onChange={e => setPrompt(e.target.value)}
                     />
+                    <div className="flex items-center gap-1">
                       <Button type="button" variant="ghost" className="h-8 w-8 p-0 shrink-0 rounded-lg text-text-muted hover:text-text-primary flex items-center justify-center" onClick={cancelSelection}>
                         <X className="h-4 w-4" />
                       </Button>
