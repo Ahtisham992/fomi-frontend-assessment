@@ -1,0 +1,32 @@
+[
+  {
+    "id": "gen-001",
+    "url": "/mock-assets/sample1.png",
+    "thumbnailUrl": "/mock-assets/sample1.png",
+    "prompt": "A futuristic city skyline at sunset, cyberpunk aesthetic",
+    "model": "fomi-v2-hq",
+    "aspectRatio": "16:9",
+    "createdAt": "2026-07-10T14:30:00Z",
+    "status": "completed"
+  },
+  {
+    "id": "gen-002",
+    "url": "/mock-assets/sample2.png",
+    "thumbnailUrl": "/mock-assets/sample2.png",
+    "prompt": "Macro photography of a rare glowing beetle on a wet leaf",
+    "model": "fomi-v1-fast",
+    "aspectRatio": "1:1",
+    "createdAt": "2026-07-12T09:15:00Z",
+    "status": "completed"
+  },
+  {
+    "id": "gen-003",
+    "url": "/mock-assets/sample3.png",
+    "thumbnailUrl": "/mock-assets/sample3.png",
+    "prompt": "Minimalist geometric shapes in pastel colors, 3d render",
+    "model": "fomi-v2-hq",
+    "aspectRatio": "4:3",
+    "createdAt": "2026-07-13T18:45:00Z",
+    "status": "completed"
+  }
+]
