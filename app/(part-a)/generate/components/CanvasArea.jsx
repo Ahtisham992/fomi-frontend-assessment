@@ -29,19 +29,19 @@ export function CanvasArea({ status, result, error, onRetry, onTryPrompt }) {
             className="flex flex-col items-center gap-8 text-center max-w-xl mx-auto relative z-10"
           >
             {/* Ambient Radial Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent-default/15 rounded-full blur-[100px] -z-10 pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-default/10 rounded-full blur-[120px] -z-10 pointer-events-none" />
 
-            <div className="relative flex h-24 w-24 items-center justify-center rounded-[2rem] bg-surface-active shadow-xl overflow-hidden border border-border-subtle/50">
+            <div className="relative flex h-24 w-24 items-center justify-center rounded-[2rem] bg-surface-active shadow-2xl overflow-hidden border border-border-subtle/50 mb-4">
               <div className="absolute inset-0 bg-gradient-to-br from-accent-default/20 to-transparent" />
               <ImageIcon className="h-10 w-10 text-accent-default/80 relative z-10" />
             </div>
             
-            <div className="space-y-3">
-              <h2 className="text-[2.5rem] leading-tight font-semibold text-text-primary tracking-tight font-[family-name:var(--font-outfit)]">
-                Figment of My Imagination
+            <div className="space-y-4">
+              <h2 className="text-4xl md:text-5xl leading-tight font-semibold text-text-primary tracking-tight font-[family-name:var(--font-outfit)]">
+                Materialize your imagination.
               </h2>
-              <p className="text-base font-light text-text-secondary max-w-md mx-auto">
-                Enter a prompt below to generate a high-quality AI asset.
+              <p className="text-lg font-light text-text-secondary max-w-lg mx-auto">
+                Describe your vision in the command center below to generate a high-quality AI asset.
               </p>
             </div>
 

@@ -19,36 +19,28 @@ export function ControlPanel({
   };
 
   return (
-    <div className="border-t border-border-default bg-surface-default p-4 sm:p-6 shrink-0 z-10 shadow-[0_-10px_30px_-15px_rgba(0,0,0,0.3)]">
-      <div className="mx-auto flex max-w-5xl flex-col gap-4">
-        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-          <div className="flex-1 w-full relative group">
-            <Textarea
-              placeholder="Describe what you want to see... (Press Enter to generate)"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              onKeyDown={handleKeyDown}
-              disabled={isGenerating}
-              className="min-h-[60px] resize-none overflow-hidden bg-background focus-visible:ring-accent-default/50"
-            />
-          </div>
-          <div className="flex w-full sm:w-auto shrink-0 gap-3">
-            <div className="w-full sm:w-36">
-              <Select
-                value={model}
-                onChange={(e) => setModel(e.target.value)}
-                disabled={isGenerating}
-                options={[
-                  { label: "Fomi V2 (HQ)", value: "fomi-v2-hq" },
-                  { label: "Fomi V1 (Fast)", value: "fomi-v1-fast" }
-                ]}
-              />
-            </div>
-            <div className="w-full sm:w-24">
+    <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 w-full max-w-[56rem] px-4 z-50">
+      <div className="flex flex-col gap-3 rounded-[2.5rem] bg-[#232120]/90 backdrop-blur-2xl border border-[#3b3531] p-4 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] ring-1 ring-white/5 transition-all">
+        <textarea
+          placeholder="Describe your imaginations to be converted to piece of art..."
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          onKeyDown={handleKeyDown}
+          disabled={isGenerating}
+          className="w-full bg-transparent resize-none text-text-primary placeholder:text-text-muted focus:outline-none min-h-[48px] px-4 pt-2 text-base font-medium"
+          rows={1}
+        />
+        
+        <div className="h-px w-full bg-border-subtle/40 mx-2 w-[calc(100%-16px)]" />
+        
+        <div className="flex flex-wrap items-center justify-between px-2 gap-4">
+          <div className="flex items-center gap-2">
+            <div className="w-28">
               <Select
                 value={aspectRatio}
                 onChange={(e) => setAspectRatio(e.target.value)}
                 disabled={isGenerating}
+                className="!h-10 !bg-[#312e2c] !border-transparent hover:!bg-[#3b3531] focus-visible:!ring-accent-default/50"
                 options={[
                   { label: "1:1", value: "1:1" },
                   { label: "16:9", value: "16:9" },
@@ -57,16 +49,28 @@ export function ControlPanel({
                 ]}
               />
             </div>
-            <Button 
-              onClick={onGenerate} 
-              disabled={!prompt.trim() || isGenerating}
-              isLoading={isGenerating}
-              className="w-full sm:w-auto sm:px-8 h-12 font-semibold shadow-md shrink-0"
-            >
-              {!isGenerating && <Sparkles className="mr-2 h-5 w-5" />}
-              Generate
-            </Button>
+            <div className="w-40">
+              <Select
+                value={model}
+                onChange={(e) => setModel(e.target.value)}
+                disabled={isGenerating}
+                className="!h-10 !bg-[#312e2c] !border-transparent hover:!bg-[#3b3531] focus-visible:!ring-accent-default/50"
+                options={[
+                  { label: "Fomi V2 (HQ)", value: "fomi-v2-hq" },
+                  { label: "Fomi V1 (Fast)", value: "fomi-v1-fast" }
+                ]}
+              />
+            </div>
           </div>
+          <Button 
+            onClick={onGenerate} 
+            disabled={!prompt.trim() || isGenerating}
+            isLoading={isGenerating}
+            className="w-full sm:w-auto px-8 h-10 md:h-12 font-semibold shadow-lg shrink-0 rounded-full"
+          >
+            {!isGenerating && <Sparkles className="mr-2 h-5 w-5" />}
+            Generate
+          </Button>
         </div>
       </div>
     </div>
