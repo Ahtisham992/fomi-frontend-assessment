@@ -93,22 +93,22 @@ export function CanvasArea({ status, result, error, onRetry, onTryPrompt, aspect
             key="success"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative flex h-full w-full max-w-5xl items-center justify-center p-4"
+            className="relative flex h-full w-full max-w-6xl items-center justify-center p-4 pb-40"
           >
             <motion.div 
               layout
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               style={{ aspectRatio: aspectRatio.replace(':', '/') }}
-              className="relative w-full max-h-full overflow-hidden rounded-[2rem] border border-border-subtle shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] group"
+              className="relative max-h-full w-full md:w-auto md:h-full max-w-full overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-border-subtle shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] group"
             >
               <Image 
                 src={result.url} 
                 alt={result.prompt} 
                 fill
-                className="object-cover transition-transform duration-700" 
+                className="object-contain md:object-cover transition-transform duration-700" 
                 priority
               />
-              <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <p className="text-white font-medium text-lg leading-snug">{result.prompt}</p>
                 <div className="flex items-center gap-2 mt-2">
                   <span className="px-2 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-white/20 text-white backdrop-blur-md">Generated</span>

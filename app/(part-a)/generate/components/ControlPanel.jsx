@@ -20,14 +20,14 @@ export function ControlPanel({
 
   return (
     <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 w-full max-w-[56rem] px-4 z-50">
-      <div className="flex flex-col gap-3 rounded-[2.5rem] bg-[#232120]/90 backdrop-blur-2xl border border-[#3b3531] p-4 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] ring-1 ring-white/5 transition-all">
+      <div className="flex flex-col gap-2 rounded-[2rem] bg-[#1c1a19]/40 backdrop-blur-3xl border border-white/10 p-3 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] ring-1 ring-white/5 transition-all">
         <textarea
-          placeholder="Describe your imaginations to be converted to piece of art..."
+          placeholder="Describe your imagination to be converted to piece of art..."
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           onKeyDown={handleKeyDown}
           disabled={isGenerating}
-          className="w-full bg-transparent resize-none text-text-primary placeholder:text-text-muted focus:outline-none min-h-[48px] px-4 pt-2 text-base font-medium"
+          className="w-full bg-transparent resize-none text-text-primary placeholder:text-text-muted focus:outline-none min-h-[40px] px-3 pt-2 text-sm font-medium"
           rows={1}
         />
         
