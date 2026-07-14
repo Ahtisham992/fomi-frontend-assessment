@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Image as ImageIcon, AlertCircle } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export function CanvasArea({ status, result, error, onRetry }) {
   return (
@@ -68,12 +69,13 @@ export function CanvasArea({ status, result, error, onRetry }) {
             animate={{ opacity: 1, scale: 1 }}
             className="relative flex h-full w-full items-center justify-center"
           >
-            <div className="relative overflow-hidden rounded-xl border border-border-default shadow-xl max-h-full max-w-full">
-              <img
+            <div className="relative overflow-hidden rounded-xl border border-border-default shadow-xl w-full h-full min-h-[500px]">
+              <Image
                 src={result.url}
                 alt={result.prompt}
-                className="max-h-full max-w-full object-contain"
-                loading="lazy"
+                fill
+                className="object-contain"
+                sizes="(max-width: 1024px) 100vw, 1024px"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 md:p-6 opacity-0 transition-opacity duration-300 hover:opacity-100">
                 <p className="text-sm font-medium text-white line-clamp-2 shadow-sm">{result.prompt}</p>
