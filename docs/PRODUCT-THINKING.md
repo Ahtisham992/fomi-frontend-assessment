@@ -1,25 +1,46 @@
 # Product Thinking — Fomi Image Editing Workspace
 
-## 1. What problem were you solving? What user did you design for?
-Professional creatives (designers, digital artists, retouchers) spend several hours a day iterating on AI generations. The current problem with existing tools is the cognitive disconnect between the canvas and the control panels. Professionals are forced to move their mouse and eyes constantly between a sidebar form and the central image to make localized edits. I designed an **Image Editing Workspace** specifically for this returning power user, focusing on minimizing friction and maximizing direct canvas manipulation.
+## 1. What problem were you trying to solve? What user did you design for?
 
-## 2. What are the three most important UX decisions you made, and why?
-1. **"Brush-to-Prompt" Contextual Input:** Instead of a static sidebar, typing a prompt happens in a floating popover directly attached to the area the user just masked. This keeps their visual focus entirely on the image being edited.
-2. **"Returning User" Default State:** The workspace loads immediately with a populated history sidebar (mocked via `/api/history`) and the most recent asset pre-loaded onto the canvas. There is no empty onboarding screen; the user lands ready to work.
-3. **Floating Minimalist Toolbar:** By moving global tools (Select, Brush, Eraser, Compare) into a sleek, floating bottom toolbar, we maximize the canvas real estate, acknowledging that the image is the hero of the workspace.
+I designed this workspace for a professional creator or editor who spends hours a day inside the tool, actively iterating on a project. I assumed they are already signed in and actively working, rather than a first-time visitor needing a tour.
 
-## 3. Which features did you intentionally leave out, and why?
-1. **Community/Social Feeds:** Professional tools need to focus on creation, not consumption. A social feed is a distraction for a user mid-project.
-2. **Complex Node-Based UI:** While powerful, node graphs introduce a steep learning curve and high cognitive load. We opted for a linear, history-based direct manipulation approach instead to maintain a fluid editing experience.
-3. **First-run Onboarding Tours:** Based on the assumption that this is a daily power user, tooltip tours and empty states were skipped in favor of an immediately productive default state.
+The core problem in most AI editing workflows is the physical and cognitive separation between "identifying the region to edit" and "describing the edit." Users typically select a region on the canvas, then move their cursor and eyes away to a side panel or separate modal to type their prompt. For someone making dozens of micro-edits daily, this continuous context-switching adds significant friction. The goal was to eliminate this indirection and keep the user's focus entirely locked on the canvas.
+
+## 2. What are the three most important UX decisions you made? Why?
+
+1. **Freehand Mask-to-Prompt:** Rather than relying on a fixed side panel, the prompt input spawns dynamically directly below the region the user just masked. This turns selecting and describing into a single, continuous interaction, removing the need for the user's eyes to leave the target area.
+2. **Canvas-First Layout with Floating Controls:** I moved global tool selection to a minimalist floating bottom bar and kept advanced parameters (like brush strength and model selection) in a secondary panel. This progressive disclosure ensures the image remains the functional center of the screen, providing maximum capability without clutter.
+3. **Persistent, Unobtrusive History:** I built a dedicated history panel on the left side that is always reachable without eating up the central canvas space. A professional editing for hours needs to constantly reference and revert to prior iterations, so history is treated as a core part of the workspace rather than a buried feature.
+
+## 3. Which features did you intentionally leave out? Why?
+
+- **First-run onboarding tours:** Since the target user is an experienced professional returning to their mid-project workflow, tooltip tours and empty states add friction rather than value.
+- **Social feeds and template galleries:** The workspace contains no marketing-style inspiration galleries. Screen space in an active editing environment is reserved strictly for the user's own work, not for browsing examples.
+- **Node-based editing graphs:** While powerful for procedural generation, node graphs introduce a steep learning curve and high visual complexity. I opted for a linear, history-based direct manipulation approach to maintain a fluid, immediate editing feel.
 
 ## 4. Which existing products inspired your thinking? What did you like? What would you improve?
-I drew inspiration from **Figma** (for its floating, unobtrusive toolbars that maximize canvas space) and **Krea** (for its real-time, low-latency feel). What I liked about Krea was the fluidity, but I wanted to improve the localized editing experience. Instead of splitting the screen into prompts and canvas, I merged them so the prompt lives *on* the canvas during active editing.
+
+I reviewed Fomi's current live Image Studio workspace. It effectively groups prompt, model, resolution, and cost into a predictable left-side rail, and the clear generation-cost indicator sets excellent expectations before committing to an action.
+
+However, I built this assessment to specifically improve upon a few areas:
+1. **Redundant empty states:** The current Fomi workspace signals an empty history in a top bar while also displaying a decorative example gallery below it. This creates a scattered hierarchy rather than solving the emptiness.
+2. **Decorative vs. Functional space:** The gallery in the main canvas area displays generic examples. For a professional mid-project, the highest-value central real estate should be reserved for their own active canvas, not marketing-style inspiration.
+3. **Control vs. Canvas imbalance:** Most of the functional weight is compressed into a narrow side rail, while the majority of the screen is dedicated to a one-time browsing experience rather than the ongoing working surface.
+
+I drew broader inspiration from Figma's canvas-first philosophy and Cursor's inline, contextual interaction models, which directly informed why the Mask-to-Prompt popover exists as an alternative to a fixed side-panel prompt.
 
 ## 5. If you had another month, what would you improve?
-1. **Layer Management:** I would introduce a robust layer system allowing users to blend multiple AI generations with different blend modes and opacity controls.
-2. **Keyboard-First Workflow:** I would implement global keyboard shortcuts (e.g., `[ ]` for brush size, `Ctrl+Z` for undo) and a command palette (`Cmd+K`) to let power users execute actions without ever clicking a button.
-3. **Local History/Versioning:** A proper branching history tree so users can explore multiple variations of an edit without losing their previous state.
 
-## 6. What single feature/workflow differentiates your workspace from existing platforms?
-The **Freehand Mask-to-Prompt Contextual Workflow**. In standard platforms, you mask an area, then go back to the sidebar to type a prompt and hit generate. In this workspace, immediately after painting a freehand mask, a contextual input pops up right below the masked area. The user types their change and hits Enter without their eyes or mouse ever leaving the canvas area. It creates a seamless, uninterrupted creative loop.
+- **Multi-region batch editing:** Allowing users to paint multiple unconnected masks and queue them into a single generative pass.
+- **Non-destructive version branching:** Implementing a true branching history tree so users can explore multiple variations of an edit without overwriting their previous lineage.
+- **Keyboard-first accessibility:** Adding a full keyboard-only equivalent for the Mask-to-Prompt workflow (e.g., using directional arrows to place a bounding box) for users who cannot use precise freehand drag interactions.
+- **Performance optimizations:** Implementing a virtualized history list and aggressive image caching strategy for handling massive project libraries smoothly.
+
+## 6. What single feature/workflow differentiates your workspace from existing AI creative platforms?
+
+The core differentiator is the **Freehand Mask-to-Prompt Contextual Workflow**. 
+
+Region-based inpainting isn't new—tools like Photoshop generative fill or Krea have had it for a while. The difference here is the interaction continuity. Instead of the standard "inpainting mask + side-panel prompt" pattern, this workspace collapses "paint a mask" and "describe the edit" into a single, anchored flow. The prompt box appears directly below your brush stroke immediately after lifting the pointer, allowing you to execute an edit without your mouse or eyes ever leaving the canvas.
+
+---
+*Note: The visual language (colors, typography, spacing) was adapted to match Fomi's actual brand identity, while the workspace architecture and interaction paradigms were deliberately built as an alternative to Fomi's existing product.*
