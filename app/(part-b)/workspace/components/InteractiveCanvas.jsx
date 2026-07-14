@@ -4,7 +4,7 @@ import { Loader2, Sparkles, Wand2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit }) {
+export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit, activeTool }) {
   const containerRef = React.useRef(null);
   const [isDrawing, setIsDrawing] = React.useState(false);
   const [box, setBox] = React.useState(null);
@@ -12,7 +12,7 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit }
   const [prompt, setPrompt] = React.useState("");
 
   const handlePointerDown = (e) => {
-    if (!currentAsset || isGenerating || showPrompt) return;
+    if (!currentAsset || isGenerating || showPrompt || activeTool !== 'brush') return;
     e.target.setPointerCapture(e.pointerId);
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -96,8 +96,8 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit }
     <div className="relative flex-1 flex items-center justify-center bg-[#09090b] overflow-hidden p-8">
       <div 
         ref={containerRef}
-        className="relative inline-flex max-w-full max-h-[85vh] rounded-md shadow-[0_0_40px_rgba(0,0,0,0.5)] touch-none select-none"
-        style={{ cursor: showPrompt || isGenerating ? "default" : "crosshair" }}
+        className="relative inline-flex max-w-full max-h-[85vh] rounded-[2rem] shadow-[0_0_40px_rgba(0,0,0,0.5)] touch-none select-none"
+        style={{ cursor: showPrompt || isGenerating ? "default" : activeTool === 'brush' ? "crosshair" : "default" }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}

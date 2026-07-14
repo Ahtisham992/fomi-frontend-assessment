@@ -34,6 +34,9 @@ export default function WorkspacePage() {
     loadHistory();
   }, [toast]);
 
+  const [activeTool, setActiveTool] = React.useState("select");
+  const [brushStrength, setBrushStrength] = React.useState(85);
+
   const handleGenerateEdit = async (prompt, box) => {
     setIsGenerating(true);
     try {
@@ -73,10 +76,18 @@ export default function WorkspacePage() {
               currentAsset={currentAsset} 
               isGenerating={isGenerating}
               onGenerateEdit={handleGenerateEdit}
+              activeTool={activeTool}
             />
-            <PropertiesPanel />
+            <PropertiesPanel 
+              activeTool={activeTool}
+              brushStrength={brushStrength}
+              setBrushStrength={setBrushStrength}
+            />
           </div>
-          <FloatingControls />
+          <FloatingControls 
+            activeTool={activeTool} 
+            setActiveTool={setActiveTool} 
+          />
         </main>
       </div>
     </div>

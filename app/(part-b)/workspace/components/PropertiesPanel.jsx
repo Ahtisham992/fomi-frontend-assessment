@@ -3,7 +3,9 @@ import { Settings2, Paintbrush, SlidersHorizontal, ChevronRight, X } from "lucid
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
-export function PropertiesPanel() {
+import { MousePointer2, Eraser } from "lucide-react";
+
+export function PropertiesPanel({ activeTool, brushStrength, setBrushStrength }) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
@@ -48,8 +50,12 @@ export function PropertiesPanel() {
             <div className="flex items-center justify-between">
               <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Active Tool</label>
               <div className="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-active border border-border-subtle">
-                <Paintbrush className="h-3.5 w-3.5 text-accent-default" />
-                <span className="text-xs font-medium text-text-primary">Selection Brush</span>
+                {activeTool === 'select' && <MousePointer2 className="h-3.5 w-3.5 text-accent-default" />}
+                {activeTool === 'brush' && <Paintbrush className="h-3.5 w-3.5 text-accent-default" />}
+                {activeTool === 'eraser' && <Eraser className="h-3.5 w-3.5 text-accent-default" />}
+                <span className="text-xs font-medium text-text-primary capitalize">
+                  {activeTool === 'brush' ? 'Brush Edit' : activeTool}
+                </span>
               </div>
             </div>
           </div>
@@ -57,9 +63,15 @@ export function PropertiesPanel() {
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Brush Strength</label>
-              <span className="text-xs text-text-muted">85%</span>
+              <span className="text-xs text-text-muted">{brushStrength}%</span>
             </div>
-            <input type="range" min="0" max="100" defaultValue="85" className="w-full accent-accent-default" />
+            <input 
+              type="range" 
+              min="0" max="100" 
+              value={brushStrength}
+              onChange={(e) => setBrushStrength(Number(e.target.value))}
+              className="w-full accent-accent-default" 
+            />
           </div>
 
           <div className="space-y-3">

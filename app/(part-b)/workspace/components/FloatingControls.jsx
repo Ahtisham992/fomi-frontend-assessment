@@ -3,9 +3,7 @@ import { motion } from "framer-motion";
 import { MousePointer2, Brush, Eraser, Undo2, ArrowLeftRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export function FloatingControls() {
-  const [activeTool, setActiveTool] = React.useState('brush');
-
+export function FloatingControls({ activeTool, setActiveTool }) {
   const tools = [
     { id: 'select', icon: MousePointer2, label: 'Select' },
     { id: 'brush', icon: Brush, label: 'Brush to Prompt' },

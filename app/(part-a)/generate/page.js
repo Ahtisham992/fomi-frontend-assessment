@@ -64,6 +64,7 @@ export default function GeneratePage() {
           error={errorMsg} 
           onRetry={handleGenerate} 
           onTryPrompt={setPrompt}
+          aspectRatio={aspectRatio}
         />
         <AnimatePresence>
           {(status === "success" || status === "loading") && (

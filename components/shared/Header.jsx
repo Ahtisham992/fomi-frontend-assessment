@@ -1,14 +1,25 @@
 "use client";
 
 import * as React from "react";
-import { User, Settings } from "lucide-react";
+import { User, Settings, LogOut, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { Dropdown } from "@/components/ui/dropdown";
+import { Modal } from "@/components/ui/modal";
+import { useToast } from "@/components/ui/toast";
 
 export function Header() {
   const pathname = usePathname();
+  const { toast } = useToast();
+  const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
+
+  const profileItems = [
+    { label: "Profile", icon: <User className="h-4 w-4" />, onClick: () => toast({ title: "Profile", description: "Navigating to profile... (Mocked)" }) },
+    { label: "Billing", icon: <CreditCard className="h-4 w-4" />, onClick: () => toast({ title: "Billing", description: "Navigating to billing... (Mocked)" }) },
+    { label: "Sign Out", icon: <LogOut className="h-4 w-4" />, onClick: () => toast({ title: "Signed out", description: "Signed out — demo mode" }) },
+  ];
 
   return (
     <header className="flex h-16 items-center justify-between border-b border-border-default px-6 bg-surface-default shrink-0 z-[100] relative">
@@ -49,13 +60,62 @@ export function Header() {
       </nav>
 
       <div className="flex items-center gap-2 relative z-50">
-        <Button variant="ghost" size="icon" className="h-9 w-9 p-0 rounded-full hover:bg-surface-active" aria-label="Settings">
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="h-9 w-9 p-0 rounded-full hover:bg-surface-active" 
+          aria-label="Settings"
+          onClick={() => setIsSettingsOpen(true)}
+        >
           <Settings className="h-5 w-5" />
         </Button>
-        <button className="h-9 w-9 overflow-hidden rounded-full bg-surface-active border border-border-subtle flex items-center justify-center hover:ring-2 hover:ring-accent-default transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-default ml-1">
-          <User className="h-5 w-5 text-text-muted" />
-        </button>
+        <Dropdown 
+          align="right"
+          items={profileItems}
+          trigger={
+            <button className="h-9 w-9 overflow-hidden rounded-full bg-surface-active border border-border-subtle flex items-center justify-center hover:ring-2 hover:ring-accent-default transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-default ml-1">
+              <User className="h-5 w-5 text-text-muted" />
+            </button>
+          }
+        />
       </div>
+
+      <Modal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        title="Preferences"
+        description="Manage your workspace settings."
+      >
+        <div className="space-y-4 pt-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-text-primary">Theme</label>
+            <select className="flex h-10 w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-sm text-text-primary">
+              <option>Dark Mode</option>
+              <option>System Default</option>
+              <option>Light Mode</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-text-primary">Default Model</label>
+            <select className="flex h-10 w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-sm text-text-primary">
+              <option>Fomi V2 (HQ)</option>
+              <option>Fomi V1 (Fast)</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-text-primary">API Key (Mock)</label>
+            <input 
+              type="password" 
+              defaultValue="fomi_sk_mock_12345" 
+              readOnly 
+              className="flex h-10 w-full rounded-md border border-border-default bg-surface-active px-3 py-2 text-sm text-text-muted cursor-not-allowed" 
+            />
+          </div>
+          <div className="pt-4 flex justify-end">
+            <Button variant="primary" onClick={() => setIsSettingsOpen(false)}>Save Changes</Button>
+          </div>
+        </div>
+      </Modal>
     </header>
   );
 }
