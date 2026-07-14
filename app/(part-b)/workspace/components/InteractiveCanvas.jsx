@@ -1,6 +1,6 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Loader2, Sparkles, Wand2 } from "lucide-react";
+import { Loader2, Sparkles, Wand2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
@@ -13,6 +13,7 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit }
 
   const handlePointerDown = (e) => {
     if (!currentAsset || isGenerating || showPrompt) return;
+    e.target.setPointerCapture(e.pointerId);
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -32,14 +33,26 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit }
     }));
   };
 
-  const handlePointerUp = () => {
+  const handlePointerUp = (e) => {
     if (!isDrawing) return;
+    e.target.releasePointerCapture(e.pointerId);
     setIsDrawing(false);
-    if (Math.abs(box.w) > 20 && Math.abs(box.h) > 20) {
+    
+    // Fallback for tap/click for mobile support
+    if (Math.abs(box.w) < 10 && Math.abs(box.h) < 10) {
+      setBox({ x: box.x - 50, y: box.y - 50, w: 100, h: 100 });
+      setShowPrompt(true);
+    } else if (Math.abs(box.w) > 5 || Math.abs(box.h) > 5) {
       setShowPrompt(true);
     } else {
       setBox(null);
     }
+  };
+
+  const cancelSelection = () => {
+    setShowPrompt(false);
+    setBox(null);
+    setPrompt("");
   };
 
   const handleSubmit = (e) => {
@@ -50,6 +63,16 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit }
     setPrompt("");
     setBox(null);
   };
+
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && showPrompt) {
+        cancelSelection();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showPrompt]);
 
   if (!currentAsset) {
     return (
@@ -62,7 +85,6 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit }
     );
   }
 
-  // Calculate actual box rendering dimensions
   const renderBox = box ? {
     left: box.w < 0 ? box.x + box.w : box.x,
     top: box.h < 0 ? box.y + box.h : box.y,
@@ -79,19 +101,18 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit }
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
-        onPointerLeave={handlePointerUp}
+        onPointerCancel={handlePointerUp}
       >
         <Image 
           src={currentAsset.url} 
           alt={currentAsset.prompt} 
           width={1024}
           height={1024}
-          className="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-md"
+          className="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-md pointer-events-none"
           draggable={false}
           priority
         />
 
-        {/* Drawn Bounding Box */}
         <AnimatePresence>
           {renderBox && (
             <motion.div
@@ -106,12 +127,11 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit }
                 height: renderBox.height,
               }}
             >
-              {/* Contextual Prompt Popover */}
               {showPrompt && (
                 <motion.div
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 flex w-[300px] items-center gap-2 rounded-xl border border-border-default bg-surface-default p-2 shadow-2xl"
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 flex w-[320px] items-center gap-2 rounded-xl border border-border-default bg-surface-default p-2 shadow-2xl"
                   onClick={e => e.stopPropagation()}
                   onPointerDown={e => e.stopPropagation()}
                 >
@@ -124,9 +144,14 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit }
                       value={prompt}
                       onChange={e => setPrompt(e.target.value)}
                     />
-                    <Button type="submit" variant="primary" size="icon" className="h-8 w-8 shrink-0 rounded-lg">
-                      <Sparkles className="h-4 w-4" />
-                    </Button>
+                    <div className="flex items-center gap-1">
+                      <Button type="button" variant="ghost" size="icon" className="h-8 w-8 shrink-0 rounded-lg text-text-muted hover:text-text-primary" onClick={cancelSelection}>
+                        <X className="h-4 w-4" />
+                      </Button>
+                      <Button type="submit" variant="primary" size="icon" className="h-8 w-8 shrink-0 rounded-lg">
+                        <Sparkles className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </form>
                 </motion.div>
               )}
@@ -134,7 +159,6 @@ export function InteractiveCanvas({ currentAsset, isGenerating, onGenerateEdit }
           )}
         </AnimatePresence>
 
-        {/* Generation Overlay */}
         {isGenerating && (
           <div className="absolute inset-0 z-20 flex items-center justify-center rounded-md bg-black/50 backdrop-blur-sm">
             <div className="flex flex-col items-center gap-3 rounded-2xl bg-surface-default p-6 shadow-2xl border border-border-subtle">

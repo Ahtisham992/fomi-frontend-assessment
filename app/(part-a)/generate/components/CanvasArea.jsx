@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-export function CanvasArea({ status, result, error, onRetry }) {
+export function CanvasArea({ status, result, error, onRetry, onTryPrompt }) {
   return (
     <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-background p-4 md:p-8">
       <AnimatePresence mode="wait">
@@ -15,14 +15,20 @@ export function CanvasArea({ status, result, error, onRetry }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="flex flex-col items-center gap-4 text-center"
+            className="flex flex-col items-center gap-6 text-center max-w-lg mx-auto"
           >
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-surface-active shadow-sm">
-              <ImageIcon className="h-8 w-8 text-text-muted" />
+            <div className="relative flex h-24 w-24 items-center justify-center rounded-3xl bg-surface-active shadow-sm overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-accent-default/20 to-transparent" />
+              <ImageIcon className="h-10 w-10 text-text-muted relative z-10" />
             </div>
-            <div className="max-w-sm">
-              <h2 className="text-xl font-semibold text-text-primary">What will you create today?</h2>
+            <div>
+              <h2 className="text-2xl font-bold text-text-primary tracking-tight">What will you create today?</h2>
               <p className="mt-2 text-sm text-text-muted">Enter a prompt below to generate a high-quality AI asset.</p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
+              <span className="text-xs font-medium text-text-muted uppercase tracking-wider mr-2">Try:</span>
+              <button onClick={() => onTryPrompt?.("A firefly on a wet leaf")} className="px-3 py-1.5 rounded-full border border-border-default bg-surface-default text-xs text-text-secondary hover:text-text-primary hover:border-text-muted transition-colors">A firefly on a wet leaf</button>
+              <button onClick={() => onTryPrompt?.("Cyberpunk city skyline at sunset")} className="px-3 py-1.5 rounded-full border border-border-default bg-surface-default text-xs text-text-secondary hover:text-text-primary hover:border-text-muted transition-colors">Cyberpunk city skyline at sunset</button>
             </div>
           </motion.div>
         )}

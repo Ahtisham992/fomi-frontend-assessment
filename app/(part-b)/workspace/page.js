@@ -1,9 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { HistoryPanel } from "./components/HistoryPanel";
+import { Header } from "@/components/shared/Header";
+import { HistoryPanel } from "@/components/shared/HistoryPanel";
 import { InteractiveCanvas } from "./components/InteractiveCanvas";
 import { FloatingControls } from "./components/FloatingControls";
+import { PropertiesPanel } from "./components/PropertiesPanel";
 import { useToast } from "@/components/ui/toast";
 
 export default function WorkspacePage() {
@@ -14,7 +16,6 @@ export default function WorkspacePage() {
   const [currentAsset, setCurrentAsset] = React.useState(null);
   const [isGenerating, setIsGenerating] = React.useState(false);
 
-  // Load returning user history
   React.useEffect(() => {
     async function loadHistory() {
       try {
@@ -22,7 +23,7 @@ export default function WorkspacePage() {
         const data = await res.json();
         setHistory(data.data);
         if (data.data.length > 0) {
-          setCurrentAsset(data.data[0]); // Load most recent
+          setCurrentAsset(data.data[0]);
         }
       } catch (err) {
         toast({ title: "Failed to load history", variant: "error" });
@@ -39,53 +40,45 @@ export default function WorkspacePage() {
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          prompt, 
-          model: currentAsset.model, 
-          aspectRatio: currentAsset.aspectRatio 
-        })
+        body: JSON.stringify({ prompt, model: currentAsset.model, aspectRatio: currentAsset.aspectRatio })
       });
 
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.error || "Edit failed");
 
-      // Set new asset as current and add to history
       setCurrentAsset(data.data);
       setHistory(prev => [data.data, ...prev]);
 
-      toast({
-        title: "Edit successful",
-        description: "Your changes have been applied.",
-        variant: "success"
-      });
+      toast({ title: "Edit successful", variant: "success" });
     } catch (err) {
-      toast({
-        title: "Edit failed",
-        description: err.message,
-        variant: "error"
-      });
+      toast({ title: "Edit failed", description: err.message, variant: "error" });
     } finally {
       setIsGenerating(false);
     }
   };
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-background">
-      <HistoryPanel 
-        history={history} 
-        isLoading={isLoadingHistory} 
-        onSelect={setCurrentAsset}
-        selectedId={currentAsset?.id}
-      />
-      <main className="relative flex-1 flex flex-col min-w-0 bg-background">
-        <InteractiveCanvas 
-          currentAsset={currentAsset} 
-          isGenerating={isGenerating}
-          onGenerateEdit={handleGenerateEdit}
+    <div className="flex h-screen w-full flex-col bg-background overflow-hidden">
+      <Header />
+      <div className="flex flex-1 overflow-hidden">
+        <HistoryPanel 
+          history={history} 
+          isLoading={isLoadingHistory} 
+          onSelect={setCurrentAsset}
+          selectedId={currentAsset?.id}
         />
-        <FloatingControls />
-      </main>
+        <main className="relative flex-1 flex flex-col min-w-0 bg-background">
+          <div className="flex flex-1 overflow-hidden relative">
+            <InteractiveCanvas 
+              currentAsset={currentAsset} 
+              isGenerating={isGenerating}
+              onGenerateEdit={handleGenerateEdit}
+            />
+            <PropertiesPanel />
+          </div>
+          <FloatingControls />
+        </main>
+      </div>
     </div>
   );
 }

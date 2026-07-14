@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const buttonVariants = {
-  primary: "bg-accent-default text-white hover:bg-accent-hover active:bg-accent-muted shadow-sm",
+  primary: "bg-accent-default text-white hover:bg-accent-hover active:bg-accent-muted shadow-sm disabled:bg-surface-active disabled:text-text-muted disabled:shadow-none",
   secondary: "bg-surface-active text-text-primary hover:bg-border-default active:bg-border-strong border border-border-subtle",
   ghost: "bg-transparent text-text-primary hover:bg-surface-hover active:bg-surface-active",
   icon: "bg-transparent text-text-secondary hover:text-text-primary hover:bg-surface-hover active:bg-surface-active p-2",
