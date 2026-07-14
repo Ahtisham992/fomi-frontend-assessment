@@ -26,7 +26,7 @@ export function CanvasArea({ status, result, error, onRetry, onTryPrompt, aspect
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="flex flex-col items-center gap-8 text-center max-w-xl mx-auto relative z-10"
+            className="flex flex-col items-center gap-8 text-center max-w-xl mx-auto relative z-10 pb-32 md:pb-40"
           >
             {/* Ambient Radial Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-default/10 rounded-full blur-[120px] -z-10 pointer-events-none" />
