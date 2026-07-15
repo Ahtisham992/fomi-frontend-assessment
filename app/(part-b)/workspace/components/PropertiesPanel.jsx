@@ -12,7 +12,7 @@ export function PropertiesPanel({ activeTool, brushStrength, setBrushStrength })
     <>
       {/* Mobile Toggle Button */}
       <div className="absolute right-4 top-4 z-40 lg:hidden">
-        <Button variant="outline" size="icon" className="bg-surface-default shadow-md rounded-full" onClick={() => setIsOpen(true)}>
+        <Button variant="secondary" size="icon" className="bg-surface-default shadow-md rounded-full" onClick={() => setIsOpen(true)}>
           <Settings2 className="h-4 w-4" />
         </Button>
       </div>
