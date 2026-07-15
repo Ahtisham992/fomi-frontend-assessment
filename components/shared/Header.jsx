@@ -36,9 +36,9 @@ export function Header() {
             align="left"
             items={mobileNavItems}
             trigger={
-              <Button variant="ghost" size="icon" className="h-10 w-10 p-0 rounded-md">
+              <button className="flex h-10 w-10 items-center justify-center rounded-md hover:bg-surface-active transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-default">
                 <Menu className="h-5 w-5 text-text-primary" />
-              </Button>
+              </button>
             }
           />
         </div>

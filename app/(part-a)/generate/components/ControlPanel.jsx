@@ -30,7 +30,7 @@ export function ControlPanel({
             onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={isGenerating}
-            className="flex-1 bg-transparent resize-none text-text-primary placeholder:text-text-muted focus:outline-none min-h-[44px] max-h-[120px] py-3 px-3 text-sm md:text-base font-medium custom-scrollbar"
+            className="flex-1 bg-transparent resize-none text-text-primary placeholder:text-text-muted focus:outline-none min-h-[44px] max-h-[120px] py-3 px-3 text-sm md:text-base font-medium [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             rows={1}
             style={{ height: "44px" }}
           />

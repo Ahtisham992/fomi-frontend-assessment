@@ -81,13 +81,13 @@ export default function WorkspacePage() {
         {/* Mobile Backdrop */}
         {isHistoryOpen && (
           <div 
-            className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+            className="absolute inset-0 z-40 bg-black/50 lg:hidden"
             onClick={() => setIsHistoryOpen(false)}
           />
         )}
 
         <div className={`
-          fixed inset-y-0 left-0 z-50 flex flex-col transition-transform duration-300 lg:static lg:flex lg:h-full lg:translate-x-0
+          absolute inset-y-0 left-0 z-50 flex flex-col transition-transform duration-300 lg:static lg:flex lg:h-full lg:translate-x-0
           ${isHistoryOpen ? "translate-x-0" : "-translate-x-full"}
         `}>
           <HistoryPanel 
