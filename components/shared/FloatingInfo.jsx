@@ -25,14 +25,14 @@ export function FloatingInfo() {
   const content = getInfoContent();
 
   return (
-    <div className="fixed top-32 right-4 sm:top-auto sm:bottom-6 sm:right-6 z-[100]">
+    <div className="fixed bottom-6 left-6 z-[100]">
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            className="absolute top-14 sm:top-auto sm:bottom-14 right-0 mt-2 sm:mt-0 sm:mb-2 w-72 rounded-xl border border-border-default bg-surface-default p-4 shadow-2xl"
+            className="absolute bottom-14 left-0 mb-2 w-72 rounded-xl border border-border-default bg-surface-default p-4 shadow-2xl"
           >
             <div className="flex items-start justify-between gap-4 mb-2">
               <h4 className="text-sm font-semibold text-text-primary">{content.title}</h4>
