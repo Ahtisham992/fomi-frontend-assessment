@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
-import { Sparkles, Image as ImageIcon, Wand2, SlidersHorizontal, ChevronUp, ChevronDown } from "lucide-react";
+import { Sparkles, Image as ImageIcon, Wand2, SlidersHorizontal, ChevronUp, ChevronDown, Crop, Cpu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -123,8 +123,8 @@ export function ControlPanel({
         </AnimatePresence>
 
         {/* Bottom Row: Controls */}
-        <div className="flex items-center justify-between px-2 pt-2 border-t border-border-subtle">
-          <div className="flex items-center gap-1">
+        <div className="flex flex-wrap items-center justify-between px-2 pt-2 border-t border-border-subtle gap-y-2 pb-1">
+          <div className="flex items-center gap-1 shrink-0">
             <button 
               onClick={() => toggleSection("styles")}
               className={cn(
@@ -149,12 +149,13 @@ export function ControlPanel({
             </button>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="w-[88px] hidden sm:block">
+          <div className="flex items-center gap-2 shrink-0 pr-1">
+            <div className="w-[95px]">
               <Select
                 value={imageCount}
                 onChange={(e) => setImageCount(e.target.value)}
                 disabled={isGenerating}
+                icon={<ImageIcon className="h-3.5 w-3.5" />}
                 className="!h-8 !text-xs !bg-transparent hover:!bg-surface-active !border-transparent focus-visible:!ring-accent-default/50"
                 options={[
                   { label: "1 Image", value: "1" },
@@ -169,6 +170,7 @@ export function ControlPanel({
                 value={aspectRatio}
                 onChange={(e) => setAspectRatio(e.target.value)}
                 disabled={isGenerating}
+                icon={<Crop className="h-3.5 w-3.5" />}
                 className="!h-8 !text-xs !bg-transparent hover:!bg-surface-active !border-transparent focus-visible:!ring-accent-default/50"
                 options={[
                   { label: "1:1", value: "1:1" },
@@ -178,11 +180,12 @@ export function ControlPanel({
                 ]}
               />
             </div>
-            <div className="w-[96px]">
+            <div className="w-[105px]">
               <Select
                 value={model}
                 onChange={(e) => setModel(e.target.value)}
                 disabled={isGenerating}
+                icon={<Cpu className="h-3.5 w-3.5" />}
                 className="!h-8 !text-xs !bg-transparent hover:!bg-surface-active !border-transparent focus-visible:!ring-accent-default/50"
                 options={[
                   { label: "Fomi V2", value: "fomi-v2-hq" },

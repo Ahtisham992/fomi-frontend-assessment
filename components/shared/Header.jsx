@@ -59,40 +59,59 @@ export function Header() {
           <span className="text-xl sm:text-2xl font-semibold tracking-tight font-[family-name:var(--font-outfit)]">Fomi</span>
         </div>
         
-        {/* Original Nav Pill (Relocated next to Logo on Generate, or Center on Workspace) */}
-        <nav className={`hidden sm:flex items-center bg-surface-active p-1 rounded-full border border-border-subtle shadow-sm pointer-events-auto ${!isGenerateRoute ? "absolute left-1/2 -translate-x-1/2 z-[60]" : "ml-4"}`}>
+        {isGenerateRoute && (
+          <nav className="hidden sm:flex items-center bg-surface-active p-1 rounded-full border border-border-subtle shadow-sm pointer-events-auto ml-4">
+            <Link href="/generate" className={`relative z-10 px-5 py-2 text-sm font-semibold rounded-full transition-colors w-[110px] text-center ${pathname === "/generate" || pathname === "/" ? "text-white" : "text-text-secondary hover:text-text-primary"}`}>
+              {pathname === "/generate" || pathname === "/" ? (
+                <motion.div layoutId="nav-pill" className="absolute inset-0 bg-accent-default rounded-full shadow-[0_4px_12px_rgba(232,104,61,0.3)]" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
+              ) : null}
+              <span className="relative z-20">Generate</span>
+            </Link>
+            <Link href="/workspace" className={`relative z-10 px-5 py-2 text-sm font-semibold rounded-full transition-colors w-[110px] text-center ${pathname === "/workspace" ? "text-white" : "text-text-secondary hover:text-text-primary"}`}>
+              {pathname === "/workspace" ? (
+                <motion.div layoutId="nav-pill" className="absolute inset-0 bg-accent-default rounded-full shadow-[0_4px_12px_rgba(232,104,61,0.3)]" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
+              ) : null}
+              <span className="relative z-20">Workspace</span>
+            </Link>
+          </nav>
+        )}
+      </div>
+
+      {/* Conditionally Rendered Workspace Center Nav */}
+      {!isGenerateRoute && (
+        <nav className="hidden sm:flex items-center bg-surface-active p-1 rounded-full border border-border-subtle shadow-sm pointer-events-auto absolute left-1/2 -translate-x-1/2 z-[60]">
           <Link href="/generate" className={`relative z-10 px-5 py-2 text-sm font-semibold rounded-full transition-colors w-[110px] text-center ${pathname === "/generate" || pathname === "/" ? "text-white" : "text-text-secondary hover:text-text-primary"}`}>
             {pathname === "/generate" || pathname === "/" ? (
-              <motion.div layoutId="nav-pill" className="absolute inset-0 bg-accent-default rounded-full shadow-[0_4px_12px_rgba(232,104,61,0.3)]" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
+              <motion.div layoutId="nav-pill-workspace" className="absolute inset-0 bg-accent-default rounded-full shadow-[0_4px_12px_rgba(232,104,61,0.3)]" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
             ) : null}
             <span className="relative z-20">Generate</span>
           </Link>
           <Link href="/workspace" className={`relative z-10 px-5 py-2 text-sm font-semibold rounded-full transition-colors w-[110px] text-center ${pathname === "/workspace" ? "text-white" : "text-text-secondary hover:text-text-primary"}`}>
             {pathname === "/workspace" ? (
-              <motion.div layoutId="nav-pill" className="absolute inset-0 bg-accent-default rounded-full shadow-[0_4px_12px_rgba(232,104,61,0.3)]" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
+              <motion.div layoutId="nav-pill-workspace" className="absolute inset-0 bg-accent-default rounded-full shadow-[0_4px_12px_rgba(232,104,61,0.3)]" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
             ) : null}
             <span className="relative z-20">Workspace</span>
           </Link>
         </nav>
-      </div>
+      )}
 
       {/* Conditionally Rendered Generate Route Center Icons */}
       {isGenerateRoute && (
-        <div className="hidden lg:flex items-center bg-surface-active p-1 rounded-full border border-border-subtle absolute left-1/2 -translate-x-1/2 z-[60] shadow-sm pointer-events-auto gap-1">
-          <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 hover:bg-surface-hover" aria-label="Home">
-            <Home className="h-5 w-5" />
+        <div className="hidden lg:flex items-center bg-surface-active p-1.5 rounded-full border border-border-subtle absolute left-1/2 -translate-x-1/2 z-[60] shadow-sm pointer-events-auto gap-1">
+          <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 hover:bg-surface-hover" aria-label="Home" title="Home">
+            <Home className="h-6 w-6 text-text-secondary hover:text-text-primary" />
           </Button>
-          <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 bg-surface-hover shadow-sm border border-border-default text-accent-default" aria-label="Images">
-            <ImageIcon className="h-5 w-5" />
+          <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 bg-background shadow-md border border-border-default text-accent-default" aria-label="Images" title="Images">
+            <ImageIcon className="h-6 w-6" />
           </Button>
-          <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 hover:bg-surface-hover" aria-label="Video">
-            <Video className="h-5 w-5" />
+          <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 hover:bg-surface-hover" aria-label="Video" title="Video">
+            <Video className="h-6 w-6 text-text-secondary hover:text-text-primary" />
           </Button>
-          <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 hover:bg-surface-hover" aria-label="Edit">
-            <Edit2 className="h-5 w-5" />
+          <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 hover:bg-surface-hover" aria-label="Edit" title="Edit">
+            <Edit2 className="h-6 w-6 text-text-secondary hover:text-text-primary" />
           </Button>
-          <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 hover:bg-surface-hover" aria-label="Assets">
-            <Layers className="h-5 w-5" />
+          <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 hover:bg-surface-hover" aria-label="Assets" title="Assets">
+            <Layers className="h-6 w-6 text-text-secondary hover:text-text-primary" />
           </Button>
         </div>
       )}

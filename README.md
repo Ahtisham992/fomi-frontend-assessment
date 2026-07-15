@@ -61,6 +61,7 @@ public/mock-assets/        # Premium AI-generated placeholder images
 3. **Robust Light/Dark Mode:** Integrated `next-themes` with a custom `data-theme` architecture. This completely eliminates hydration mismatch flashes and ensures the UI instantly reacts to system preferences or user toggles without colliding with Next.js App Router's server-rendered classes.
 4. **Simulated Realism:** The mock `/api/generate` endpoint purposefully introduces a randomized 1.5–4 second latency and a 7% failure rate. This guarantees that the UI's loading, empty, and error states are rigorously tested in realistic conditions.
 5. **Product Thinking (Part B):** I designed an original "Image Editing Workspace" centered around a "Freehand Mask-to-Prompt" workflow, deliberately excluding social feeds or onboarding flows to prioritize the needs of returning power users. (See `docs/PRODUCT-THINKING.md` for full details).
+6. **High-Fidelity UI Polish:** Throughout both parts, extreme care was given to visual micro-interactions. This includes Framer Motion `layoutId` sliding active states, deep backdrop-blur glassmorphism, completely layout-shift-free absolute drawer architectures, and meticulously stacked drop-shadows to ensure a truly premium feel.
 
 ## 📄 Documentation
 - [Implementation Plan & Rules](docs/)

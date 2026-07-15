@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const Select = React.forwardRef(({ className, label, options, id, value, onChange, disabled, ...props }, ref) => {
+const Select = React.forwardRef(({ className, label, options, id, value, onChange, disabled, icon, ...props }, ref) => {
   const generatedId = React.useId();
   const selectId = id || generatedId;
   const [isOpen, setIsOpen] = React.useState(false);
@@ -47,7 +47,10 @@ const Select = React.forwardRef(({ className, label, options, id, value, onChang
           )}
           {...props}
         >
-          <span className="truncate pr-2">{selectedOption?.label}</span>
+          <div className="flex items-center gap-1.5 truncate">
+            {icon && <span className="text-text-muted">{icon}</span>}
+            <span className="truncate pr-2">{selectedOption?.label}</span>
+          </div>
           <ChevronDown className={cn("h-4 w-4 shrink-0 text-text-muted transition-transform duration-200", isOpen && "rotate-180")} />
         </button>
 

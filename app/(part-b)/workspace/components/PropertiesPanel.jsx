@@ -7,6 +7,7 @@ import { MousePointer2, Eraser } from "lucide-react";
 
 export function PropertiesPanel({ activeTool, brushStrength, setBrushStrength }) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [styleMode, setStyleMode] = React.useState('seamless');
 
   return (
     <>
@@ -62,29 +63,64 @@ export function PropertiesPanel({ activeTool, brushStrength, setBrushStrength })
 
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Brush Strength</label>
-              <span className="text-xs text-text-muted">{brushStrength}%</span>
+              <label className="text-[11px] font-bold text-text-muted uppercase tracking-widest">Brush Strength</label>
+              <span className="text-xs font-semibold text-text-primary bg-surface-active px-2 py-0.5 rounded border border-border-subtle tabular-nums">{brushStrength}%</span>
             </div>
-            <input 
-              type="range" 
-              min="0" max="100" 
-              value={brushStrength}
-              onChange={(e) => setBrushStrength(Number(e.target.value))}
-              className="w-full accent-accent-default" 
-            />
+            <div className="relative flex items-center h-4">
+              <input 
+                type="range" 
+                min="0" max="100" 
+                value={brushStrength}
+                onChange={(e) => setBrushStrength(Number(e.target.value))}
+                className="absolute inset-0 w-full h-1.5 bg-border-default rounded-full appearance-none outline-none focus-visible:ring-2 focus-visible:ring-accent-default/50 z-10 cursor-pointer" 
+                style={{
+                  background: `linear-gradient(to right, hsl(15, 80%, 57%) ${brushStrength}%, transparent ${brushStrength}%)`
+                }}
+              />
+              <style jsx>{`
+                input[type='range']::-webkit-slider-thumb {
+                  -webkit-appearance: none;
+                  appearance: none;
+                  width: 14px;
+                  height: 14px;
+                  border-radius: 50%;
+                  background: hsl(15, 80%, 57%);
+                  box-shadow: 0 0 0 2px var(--color-surface-default), 0 2px 4px rgba(0,0,0,0.5);
+                  cursor: pointer;
+                  transition: transform 0.1s;
+                }
+                input[type='range']::-webkit-slider-thumb:hover {
+                  transform: scale(1.15);
+                }
+              `}</style>
+            </div>
           </div>
 
           <div className="space-y-3">
-            <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Edit Style</label>
-            <div className="grid grid-cols-2 gap-2">
-              <button className="px-3 py-2 text-xs font-medium rounded-md border border-accent-default bg-accent-default/10 text-accent-default text-center">Seamless</button>
-              <button className="px-3 py-2 text-xs font-medium rounded-md border border-border-default bg-surface-active text-text-secondary text-center hover:text-text-primary hover:border-border-subtle transition-colors">Surreal</button>
+            <label className="text-[11px] font-bold text-text-muted uppercase tracking-widest">Edit Style</label>
+            <div className="flex p-1 bg-surface-active border border-border-subtle rounded-lg relative">
+              <div 
+                className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-surface-default border border-border-default rounded-md shadow-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                style={{ left: styleMode === 'seamless' ? '4px' : 'calc(50%)' }}
+              />
+              <button 
+                onClick={() => setStyleMode('seamless')}
+                className={`relative z-10 flex-1 py-1.5 text-xs font-semibold rounded-md transition-colors ${styleMode === 'seamless' ? 'text-accent-default' : 'text-text-secondary hover:text-text-primary'}`}
+              >
+                Seamless
+              </button>
+              <button 
+                onClick={() => setStyleMode('surreal')}
+                className={`relative z-10 flex-1 py-1.5 text-xs font-semibold rounded-md transition-colors ${styleMode === 'surreal' ? 'text-accent-default' : 'text-text-secondary hover:text-text-primary'}`}
+              >
+                Surreal
+              </button>
             </div>
           </div>
           
           <div className="space-y-3 pt-4 border-t border-border-subtle">
-            <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Model</label>
-            <select className="w-full bg-surface-active border border-border-subtle rounded-md px-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-default">
+            <label className="text-[11px] font-bold text-text-muted uppercase tracking-widest">Model</label>
+            <select className="w-full bg-surface-active border border-border-subtle rounded-lg px-3 py-2 text-sm font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-default/50 hover:bg-surface-hover transition-colors appearance-none cursor-pointer">
               <option>Fomi V2 (High Quality)</option>
               <option>Fomi V1 (Fast)</option>
             </select>

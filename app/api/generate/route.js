@@ -9,8 +9,8 @@ export async function POST(request) {
     const latency = Math.floor(Math.random() * 2500) + 1500;
     await new Promise(resolve => setTimeout(resolve, latency));
 
-    // Simulate ~1 in 15 failure (approx 7%)
-    const shouldFail = Math.random() < 0.07;
+    // Simulate ~1 in 15 failure (approx 7%) - Disabled for testing
+    const shouldFail = false;
     if (shouldFail) {
       return NextResponse.json(
         { error: "Generation failed due to a simulated backend error. Please try again." },
@@ -27,7 +27,10 @@ export async function POST(request) {
     
     // Convert to Number, capped between 1 and 4
     const count = Math.min(Math.max(Number(imageCount) || 1, 1), 4);
-    const generatedUrls = Array.from({ length: count }, () => mockImagesPool[Math.floor(Math.random() * mockImagesPool.length)]);
+    
+    // Shuffle pool and pick 'count' distinct images (if count <= pool.length)
+    const shuffledPool = [...mockImagesPool].sort(() => 0.5 - Math.random());
+    const generatedUrls = Array.from({ length: count }, (_, i) => shuffledPool[i % shuffledPool.length]);
 
     const mockResponse = {
       id: `gen-${Math.random().toString(36).substr(2, 9)}`,

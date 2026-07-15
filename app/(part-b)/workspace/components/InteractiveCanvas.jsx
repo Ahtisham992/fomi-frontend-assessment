@@ -229,9 +229,18 @@ export const InteractiveCanvas = React.forwardRef(function InteractiveCanvas({ c
       className="relative flex-1 flex items-center justify-center bg-background overflow-hidden p-8"
       onPointerLeave={() => setCursorPos(null)}
     >
+      {/* Premium Workspace Dot Grid Background */}
+      <div 
+        className="absolute inset-0 z-0 pointer-events-none opacity-20"
+        style={{
+          backgroundImage: 'radial-gradient(circle at center, var(--color-text-muted) 1px, transparent 1px)',
+          backgroundSize: '24px 24px'
+        }}
+      />
+      
       <div 
         ref={containerRef}
-        className={`relative inline-flex max-w-full max-h-[85vh] rounded-[2rem] shadow-[0_0_40px_rgba(0,0,0,0.5)] touch-none select-none ${showCustomCursor ? 'cursor-none' : ''}`}
+        className={`relative inline-flex max-w-full max-h-[85vh] rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)] border border-border-subtle/30 touch-none select-none ${showPrompt ? 'z-50' : 'z-10'} ${showCustomCursor ? 'cursor-none' : ''}`}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -321,6 +330,17 @@ export const InteractiveCanvas = React.forwardRef(function InteractiveCanvas({ c
             </div>
           </div>
         )}
+      </div>
+
+      {/* Floating Zoom Widget */}
+      <div className="absolute bottom-6 right-6 z-40 flex items-center gap-1 rounded-full bg-surface-default/90 backdrop-blur-md shadow-lg border border-border-default p-1 text-text-secondary">
+        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-surface-active hover:text-text-primary">
+          <span className="text-lg font-medium leading-none">-</span>
+        </Button>
+        <span className="text-xs font-semibold px-2 tabular-nums">100%</span>
+        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-surface-active hover:text-text-primary">
+          <span className="text-lg font-medium leading-none">+</span>
+        </Button>
       </div>
     </div>
   );
