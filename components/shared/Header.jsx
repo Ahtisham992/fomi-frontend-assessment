@@ -27,40 +27,41 @@ export function Header() {
   return (
     <header className="flex h-16 items-center justify-between border-b border-border-default px-4 sm:px-6 bg-surface-default shrink-0 z-[100] relative">
       <div className="flex items-center gap-3 sm:gap-6 relative z-50">
-        <div className="sm:hidden block relative">
-          <button 
-            type="button"
-            className="flex h-10 w-10 items-center justify-center rounded-md hover:bg-surface-active transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-default cursor-pointer relative z-[200]"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setIsMobileMenuOpen(!isMobileMenuOpen);
-            }}
-            style={{ pointerEvents: 'auto', touchAction: 'manipulation' }}
+        
+        {/* Foolproof Mobile Menu Toggle */}
+        <div className="sm:hidden relative z-[9999]">
+          <div 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="flex h-12 w-12 -ml-2 items-center justify-center rounded-lg active:bg-white/10 cursor-pointer"
           >
-            <Menu className="h-5 w-5 text-text-primary pointer-events-none" />
-          </button>
+            <Menu className="h-6 w-6 text-text-primary" />
+          </div>
           
           {isMobileMenuOpen && (
-            <>
-              <div className="fixed inset-0 z-40" onClick={() => setIsMobileMenuOpen(false)} />
-              <div className="absolute left-0 top-12 z-50 w-48 rounded-xl bg-surface-default border border-border-default shadow-2xl py-1 flex flex-col">
-                <button 
-                  className="px-4 py-3 text-left text-sm font-medium text-text-primary hover:bg-surface-hover"
-                  onClick={() => { setIsMobileMenuOpen(false); router.push('/generate'); }}
-                >
-                  Generate
-                </button>
-                <button 
-                  className="px-4 py-3 text-left text-sm font-medium text-text-primary hover:bg-surface-hover"
-                  onClick={() => { setIsMobileMenuOpen(false); router.push('/workspace'); }}
-                >
-                  Workspace
-                </button>
+            <div className="absolute left-0 top-12 mt-2 w-56 rounded-xl bg-[#1c1a19] border border-white/10 shadow-2xl overflow-hidden flex flex-col z-[99999]">
+              <div 
+                className="px-5 py-4 text-sm font-semibold text-white border-b border-white/10 active:bg-white/10 cursor-pointer"
+                onClick={() => { setIsMobileMenuOpen(false); router.push('/generate'); }}
+              >
+                Generate
               </div>
-            </>
+              <div 
+                className="px-5 py-4 text-sm font-semibold text-white active:bg-white/10 cursor-pointer"
+                onClick={() => { setIsMobileMenuOpen(false); router.push('/workspace'); }}
+              >
+                Workspace
+              </div>
+            </div>
           )}
         </div>
+        
+        {/* Backdrop */}
+        {isMobileMenuOpen && (
+          <div 
+            className="fixed inset-0 bg-black/60 z-[9000] sm:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
         <div className="flex items-center gap-3 text-text-primary">
           <div className="flex items-center justify-center">
             <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
