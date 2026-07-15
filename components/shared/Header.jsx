@@ -28,22 +28,19 @@ export function Header() {
       <div className="flex items-center gap-3 sm:gap-6 relative z-50">
         
         {/* Mobile Navigation Toggle Button */}
-        <div className="sm:hidden relative z-[9999]">
-          {pathname === "/workspace" ? (
-            <Link 
-              href="/generate"
-              className="flex h-9 items-center justify-center px-4 rounded-full bg-accent-default hover:bg-accent-hover text-white text-sm font-medium shadow-[0_4px_12px_rgba(232,104,61,0.3)] transition-all"
-            >
-              Generate
-            </Link>
-          ) : (
-            <Link 
-              href="/workspace"
-              className="flex h-9 items-center justify-center px-4 rounded-full bg-surface-active border border-border-subtle hover:border-border-default text-text-primary text-sm font-medium transition-all"
-            >
-              Workspace
-            </Link>
-          )}
+        <div className="sm:hidden block relative z-[9999]">
+          <Dropdown
+            align="left"
+            items={[
+              { label: "Generate", onClick: () => router.push("/generate") },
+              { label: "Workspace", onClick: () => router.push("/workspace") }
+            ]}
+            trigger={
+              <button className="flex h-10 w-10 items-center justify-center rounded-md hover:bg-surface-active transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-default">
+                <Menu className="h-5 w-5 text-text-primary" />
+              </button>
+            }
+          />
         </div>
         <div className="flex items-center gap-3 text-text-primary">
           <div className="flex items-center justify-center">
