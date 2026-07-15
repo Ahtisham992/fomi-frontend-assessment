@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { User, Settings, LogOut, CreditCard } from "lucide-react";
+import { User, Settings, LogOut, CreditCard, Menu, Home, Image as ImageIcon, Video, Edit2, Layers, LayoutGrid, HelpCircle, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -9,7 +9,6 @@ import { motion } from "framer-motion";
 import { Dropdown } from "@/components/ui/dropdown";
 import { Modal } from "@/components/ui/modal";
 import { useToast } from "@/components/ui/toast";
-import { Menu } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Select } from "@/components/ui/select";
 import Image from "next/image";
@@ -25,6 +24,8 @@ export function Header() {
   React.useEffect(() => {
     setMounted(true);
   }, []);
+
+  const isGenerateRoute = pathname.startsWith("/generate") || pathname === "/";
 
   const profileItems = [
     { label: "Profile", icon: <User className="h-4 w-4" />, onClick: () => toast({ title: "Profile", description: "Navigating to profile... (Mocked)" }) },
@@ -57,39 +58,88 @@ export function Header() {
           </div>
           <span className="text-xl sm:text-2xl font-semibold tracking-tight font-[family-name:var(--font-outfit)]">Fomi</span>
         </div>
+        
+        {/* Original Nav Pill (Relocated next to Logo on Generate, or Center on Workspace) */}
+        <nav className={`hidden sm:flex items-center bg-surface-active p-1 rounded-full border border-border-subtle shadow-sm pointer-events-auto ${!isGenerateRoute ? "absolute left-1/2 -translate-x-1/2 z-[60]" : "ml-4"}`}>
+          <Link href="/generate" className={`relative z-10 px-5 py-2 text-sm font-semibold rounded-full transition-colors w-[110px] text-center ${pathname === "/generate" || pathname === "/" ? "text-white" : "text-text-secondary hover:text-text-primary"}`}>
+            {pathname === "/generate" || pathname === "/" ? (
+              <motion.div layoutId="nav-pill" className="absolute inset-0 bg-accent-default rounded-full shadow-[0_4px_12px_rgba(232,104,61,0.3)]" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
+            ) : null}
+            <span className="relative z-20">Generate</span>
+          </Link>
+          <Link href="/workspace" className={`relative z-10 px-5 py-2 text-sm font-semibold rounded-full transition-colors w-[110px] text-center ${pathname === "/workspace" ? "text-white" : "text-text-secondary hover:text-text-primary"}`}>
+            {pathname === "/workspace" ? (
+              <motion.div layoutId="nav-pill" className="absolute inset-0 bg-accent-default rounded-full shadow-[0_4px_12px_rgba(232,104,61,0.3)]" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
+            ) : null}
+            <span className="relative z-20">Workspace</span>
+          </Link>
+        </nav>
       </div>
 
-      {/* Centered Pill Navigation */}
-      <nav className="hidden sm:flex items-center bg-surface-active p-1 rounded-full border border-border-subtle absolute left-1/2 -translate-x-1/2 z-[60] shadow-sm pointer-events-auto">
-        <Link href="/generate" className={`relative z-10 px-5 py-2 text-sm font-semibold rounded-full transition-colors w-[110px] text-center ${pathname === "/generate" || pathname === "/" ? "text-white" : "text-text-secondary hover:text-text-primary"}`}>
-          {pathname === "/generate" || pathname === "/" ? (
-            <motion.div layoutId="nav-pill" className="absolute inset-0 bg-accent-default rounded-full shadow-[0_4px_12px_rgba(232,104,61,0.3)]" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
-          ) : null}
-          <span className="relative z-20">Generate</span>
-        </Link>
-        <Link href="/workspace" className={`relative z-10 px-5 py-2 text-sm font-semibold rounded-full transition-colors w-[110px] text-center ${pathname === "/workspace" ? "text-white" : "text-text-secondary hover:text-text-primary"}`}>
-          {pathname === "/workspace" ? (
-            <motion.div layoutId="nav-pill" className="absolute inset-0 bg-accent-default rounded-full shadow-[0_4px_12px_rgba(232,104,61,0.3)]" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
-          ) : null}
-          <span className="relative z-20">Workspace</span>
-        </Link>
-      </nav>
+      {/* Conditionally Rendered Generate Route Center Icons */}
+      {isGenerateRoute && (
+        <div className="hidden lg:flex items-center bg-surface-active p-1 rounded-full border border-border-subtle absolute left-1/2 -translate-x-1/2 z-[60] shadow-sm pointer-events-auto gap-1">
+          <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 hover:bg-surface-hover" aria-label="Home">
+            <Home className="h-5 w-5" />
+          </Button>
+          <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 bg-surface-hover shadow-sm border border-border-default text-accent-default" aria-label="Images">
+            <ImageIcon className="h-5 w-5" />
+          </Button>
+          <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 hover:bg-surface-hover" aria-label="Video">
+            <Video className="h-5 w-5" />
+          </Button>
+          <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 hover:bg-surface-hover" aria-label="Edit">
+            <Edit2 className="h-5 w-5" />
+          </Button>
+          <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 hover:bg-surface-hover" aria-label="Assets">
+            <Layers className="h-5 w-5" />
+          </Button>
+        </div>
+      )}
 
-      <div className="flex items-center gap-2 relative z-50">
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="h-9 w-9 p-0 rounded-full hover:bg-surface-active" 
-          aria-label="Settings"
-          onClick={() => setIsSettingsOpen(true)}
-        >
-          <Settings className="h-5 w-5" />
-        </Button>
+      <div className="flex items-center gap-2 sm:gap-4 relative z-50">
+        
+        {/* Conditionally Rendered Generate Route Right Buttons */}
+        {isGenerateRoute && (
+          <div className="hidden md:flex items-center gap-2 mr-2">
+            <Button variant="ghost" className="h-9 px-3 rounded-full text-text-secondary hover:text-text-primary hover:bg-surface-active">
+              <LayoutGrid className="h-4 w-4 mr-2" />
+              <span className="text-sm font-medium">Gallery</span>
+            </Button>
+            <Button variant="ghost" className="h-9 px-3 rounded-full text-text-secondary hover:text-text-primary hover:bg-surface-active">
+              <HelpCircle className="h-4 w-4 mr-2" />
+              <span className="text-sm font-medium">Support</span>
+            </Button>
+          </div>
+        )}
+
+        {/* Shared Theme Toggle & Settings */}
+        <div className="flex items-center gap-1 border-l border-border-subtle pl-2 sm:pl-4">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-9 w-9 p-0 rounded-full hover:bg-surface-active text-text-secondary hover:text-text-primary" 
+            aria-label="Toggle Theme"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          >
+            {mounted && theme === 'dark' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-9 w-9 p-0 rounded-full hover:bg-surface-active text-text-secondary hover:text-text-primary hidden sm:flex" 
+            aria-label="Settings"
+            onClick={() => setIsSettingsOpen(true)}
+          >
+            <Settings className="h-4 w-4" />
+          </Button>
+        </div>
+
         <Dropdown 
           align="right"
           items={profileItems}
           trigger={
-            <button className="h-9 w-9 overflow-hidden rounded-full bg-surface-active border border-border-subtle flex items-center justify-center hover:ring-2 hover:ring-accent-default transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-default ml-1">
+            <button className="h-9 w-9 overflow-hidden rounded-full bg-surface-active border border-border-subtle flex items-center justify-center hover:ring-2 hover:ring-accent-default transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-default">
               <User className="h-5 w-5 text-text-muted" />
             </button>
           }
