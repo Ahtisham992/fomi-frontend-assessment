@@ -10,12 +10,20 @@ import { Dropdown } from "@/components/ui/dropdown";
 import { Modal } from "@/components/ui/modal";
 import { useToast } from "@/components/ui/toast";
 import { Menu } from "lucide-react";
+import { useTheme } from "next-themes";
+import { Select } from "@/components/ui/select";
 
 export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { toast } = useToast();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const profileItems = [
     { label: "Profile", icon: <User className="h-4 w-4" />, onClick: () => toast({ title: "Profile", description: "Navigating to profile... (Mocked)" }) },
@@ -106,12 +114,21 @@ export function Header() {
       >
         <div className="space-y-4 pt-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-text-primary">Theme</label>
-            <select className="flex h-10 w-full rounded-md border border-border-default bg-surface-default px-3 py-2 text-sm text-text-primary">
-              <option>Dark Mode</option>
-              <option>System Default</option>
-              <option>Light Mode</option>
-            </select>
+            {mounted ? (
+              <Select
+                label="Theme"
+                value={theme}
+                onChange={(e) => setTheme(e.target.value)}
+                options={[
+                  { label: "Dark Mode", value: "dark" },
+                  { label: "Light Mode", value: "light" },
+                  { label: "System Default", value: "system" }
+                ]}
+                className="h-10 rounded-md"
+              />
+            ) : (
+              <div className="h-[68px] w-full" />
+            )}
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-text-primary">Default Model</label>

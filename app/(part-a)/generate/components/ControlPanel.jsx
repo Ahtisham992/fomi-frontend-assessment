@@ -20,7 +20,7 @@ export function ControlPanel({
 
   return (
     <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 w-full max-w-[48rem] px-4 z-50">
-      <div className="flex flex-col gap-1.5 rounded-3xl bg-[#1c1a19]/70 backdrop-blur-xl border border-white/10 p-2 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)] ring-1 ring-white/5 transition-all">
+      <div className="flex flex-col gap-1.5 rounded-3xl bg-surface-default/80 backdrop-blur-xl border border-border-default p-2 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)] ring-1 ring-border-subtle/50 transition-all">
         
         {/* Top Row: Input and Generate Button */}
         <div className="flex items-end gap-2 px-1">

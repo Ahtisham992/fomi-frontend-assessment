@@ -41,7 +41,35 @@
 }
 
 :root {
-  /* Default to dark mode palette for a professional creative tool */
+  /* Light mode palette */
+  --background: #fafafa;
+  --foreground: #171615;
+  
+  --surface-default: #ffffff;
+  --surface-hover: #f4f4f5;
+  --surface-active: #e4e4e7;
+  
+  --border-subtle: #f4f4f5;
+  --border-default: #e4e4e7;
+  --border-strong: #d4d4d8;
+
+  --text-primary: #171615;
+  --text-secondary: #52525b;
+  --text-muted: #71717a;
+  --text-inverse: #fafafa;
+  
+  --accent-default: #E8683D;
+  --accent-hover: #F2734A;
+  --accent-muted: #C14D25;
+  
+  --state-success: #10b981;
+  --state-error: #ef4444;
+  --state-warning: #f59e0b;
+  --state-info: #3b82f6;
+}
+
+.dark {
+  /* Dark mode palette */
   --background: #171615;
   --foreground: #fafafa;
   

@@ -23,17 +23,22 @@ export const metadata = {
   description: "Professional AI image and video generation platform",
 };
 
+import { ThemeProvider } from "@/components/shared/ThemeProvider";
+
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
-        <ToastProvider>
-          {children}
-          <FloatingInfo />
-        </ToastProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ToastProvider>
+            {children}
+            <FloatingInfo />
+          </ToastProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
