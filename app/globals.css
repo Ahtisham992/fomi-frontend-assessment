@@ -40,7 +40,7 @@
   --font-outfit: var(--font-outfit);
 }
 
-:root {
+:root, [data-theme='light'] {
   /* Light mode palette */
   --background: #fafafa;
   --foreground: #171615;
@@ -68,7 +68,7 @@
   --state-info: #3b82f6;
 }
 
-.dark {
+[data-theme='dark'] {
   /* Dark mode palette */
   --background: #171615;
   --foreground: #fafafa;

@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
           <ToastProvider>
             {children}
             <FloatingInfo />
