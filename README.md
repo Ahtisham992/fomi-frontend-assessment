@@ -3,9 +3,8 @@
 A pixel-accurate, premium, and fully responsive AI generation platform built as part of the Fomi Frontend Developer assessment. This repository contains both Part A (Mockup Implementation) and Part B (Original Creative Workspace).
 
 ## 🚀 Live Deployment
-- **Part A (Generate Page):** [Insert Live URL]
-- **Part B (Workspace):** [Insert Live URL /workspace]
-*(Note: As the author of this codebase, please connect this repository to Vercel to generate the live deployment links above.)*
+- **Part A (Generate Page):** [fomi-frontend-assessment-blush.vercel.app/generate](https://fomi-frontend-assessment-blush.vercel.app/generate)
+- **Part B (Workspace):** [fomi-frontend-assessment-blush.vercel.app/workspace](https://fomi-frontend-assessment-blush.vercel.app/workspace)
 
 ## 🛠 Tech Stack
 - **Framework:** Next.js (App Router)
@@ -59,8 +58,9 @@ public/mock-assets/        # Premium AI-generated placeholder images
 ## 🧠 Key Decisions
 1. **Separation of Concerns:** Shared UI primitives (`components/ui/`) strictly contain no business logic. All feature-specific logic (like the "Freehand Mask-to-Prompt" workflow) is contained exclusively within the `app/(part-b)` and `app/(part-a)` directories.
 2. **Design Tokens:** Instead of hardcoding hex values throughout the app, I mapped a comprehensive set of semantic design tokens (e.g., `--color-surface-default`, `--color-text-primary`) in `globals.css` using Tailwind v4's new `@theme` configuration. This ensures effortless theming and perfect consistency.
-3. **Simulated Realism:** The mock `/api/generate` endpoint purposefully introduces a randomized 1.5–4 second latency and a 7% failure rate. This guarantees that the UI's loading, empty, and error states are rigorously tested in realistic conditions.
-4. **Product Thinking (Part B):** I designed an original "Image Editing Workspace" centered around a "Freehand Mask-to-Prompt" workflow, deliberately excluding social feeds or onboarding flows to prioritize the needs of returning power users. (See `docs/PRODUCT-THINKING.md` for full details).
+3. **Robust Light/Dark Mode:** Integrated `next-themes` with a custom `data-theme` architecture. This completely eliminates hydration mismatch flashes and ensures the UI instantly reacts to system preferences or user toggles without colliding with Next.js App Router's server-rendered classes.
+4. **Simulated Realism:** The mock `/api/generate` endpoint purposefully introduces a randomized 1.5–4 second latency and a 7% failure rate. This guarantees that the UI's loading, empty, and error states are rigorously tested in realistic conditions.
+5. **Product Thinking (Part B):** I designed an original "Image Editing Workspace" centered around a "Freehand Mask-to-Prompt" workflow, deliberately excluding social feeds or onboarding flows to prioritize the needs of returning power users. (See `docs/PRODUCT-THINKING.md` for full details).
 
 ## 📄 Documentation
 - [Implementation Plan & Rules](docs/)
