@@ -29,10 +29,16 @@ export function Header() {
       <div className="flex items-center gap-3 sm:gap-6 relative z-50">
         <div className="sm:hidden block relative">
           <button 
-            className="flex h-10 w-10 items-center justify-center rounded-md hover:bg-surface-active transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-default"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            type="button"
+            className="flex h-10 w-10 items-center justify-center rounded-md hover:bg-surface-active transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-default cursor-pointer relative z-[200]"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsMobileMenuOpen(!isMobileMenuOpen);
+            }}
+            style={{ pointerEvents: 'auto', touchAction: 'manipulation' }}
           >
-            <Menu className="h-5 w-5 text-text-primary" />
+            <Menu className="h-5 w-5 text-text-primary pointer-events-none" />
           </button>
           
           {isMobileMenuOpen && (
