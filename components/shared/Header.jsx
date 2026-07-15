@@ -16,6 +16,7 @@ export function Header() {
   const router = useRouter();
   const { toast } = useToast();
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   const profileItems = [
     { label: "Profile", icon: <User className="h-4 w-4" />, onClick: () => toast({ title: "Profile", description: "Navigating to profile... (Mocked)" }) },
@@ -23,24 +24,36 @@ export function Header() {
     { label: "Sign Out", icon: <LogOut className="h-4 w-4" />, onClick: () => toast({ title: "Signed out", description: "Signed out — demo mode" }) },
   ];
 
-  const mobileNavItems = [
-    { label: "Generate", onClick: () => router.push("/generate") },
-    { label: "Workspace", onClick: () => router.push("/workspace") },
-  ];
-
   return (
     <header className="flex h-16 items-center justify-between border-b border-border-default px-4 sm:px-6 bg-surface-default shrink-0 z-[100] relative">
       <div className="flex items-center gap-3 sm:gap-6 relative z-50">
-        <div className="sm:hidden block">
-          <Dropdown
-            align="left"
-            items={mobileNavItems}
-            trigger={
-              <div className="flex h-10 w-10 items-center justify-center rounded-md hover:bg-surface-active transition-colors">
-                <Menu className="h-5 w-5 text-text-primary" />
+        <div className="sm:hidden block relative">
+          <button 
+            className="flex h-10 w-10 items-center justify-center rounded-md hover:bg-surface-active transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-default"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <Menu className="h-5 w-5 text-text-primary" />
+          </button>
+          
+          {isMobileMenuOpen && (
+            <>
+              <div className="fixed inset-0 z-40" onClick={() => setIsMobileMenuOpen(false)} />
+              <div className="absolute left-0 top-12 z-50 w-48 rounded-xl bg-surface-default border border-border-default shadow-2xl py-1 flex flex-col">
+                <button 
+                  className="px-4 py-3 text-left text-sm font-medium text-text-primary hover:bg-surface-hover"
+                  onClick={() => { setIsMobileMenuOpen(false); router.push('/generate'); }}
+                >
+                  Generate
+                </button>
+                <button 
+                  className="px-4 py-3 text-left text-sm font-medium text-text-primary hover:bg-surface-hover"
+                  onClick={() => { setIsMobileMenuOpen(false); router.push('/workspace'); }}
+                >
+                  Workspace
+                </button>
               </div>
-            }
-          />
+            </>
+          )}
         </div>
         <div className="flex items-center gap-3 text-text-primary">
           <div className="flex items-center justify-center">
