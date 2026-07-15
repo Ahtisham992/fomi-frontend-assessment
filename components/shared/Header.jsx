@@ -27,27 +27,24 @@ export function Header() {
     <header className="flex h-16 items-center justify-between border-b border-border-default px-4 sm:px-6 bg-surface-default shrink-0 z-[100] relative">
       <div className="flex items-center gap-3 sm:gap-6 relative z-50">
         
-        {/* Native Mobile Menu Toggle */}
-        <details className="sm:hidden relative z-[9999] group">
-          <summary className="flex h-10 w-10 items-center justify-center rounded-md hover:bg-surface-active cursor-pointer list-none [&::-webkit-details-marker]:hidden">
-            <Menu className="h-5 w-5 text-text-primary pointer-events-none" />
-          </summary>
-          
-          <div className="absolute left-0 top-12 mt-2 w-48 rounded-xl bg-surface-default border border-border-default shadow-2xl overflow-hidden flex flex-col z-[99999]">
+        {/* Mobile Navigation Toggle Button */}
+        <div className="sm:hidden relative z-[9999]">
+          {pathname === "/workspace" ? (
             <Link 
               href="/generate"
-              className="px-4 py-3 text-sm font-medium text-text-primary border-b border-border-subtle hover:bg-surface-hover transition-colors"
+              className="flex h-9 items-center justify-center px-4 rounded-full bg-accent-default hover:bg-accent-hover text-white text-sm font-medium shadow-[0_4px_12px_rgba(232,104,61,0.3)] transition-all"
             >
               Generate
             </Link>
+          ) : (
             <Link 
               href="/workspace"
-              className="px-4 py-3 text-sm font-medium text-text-primary hover:bg-surface-hover transition-colors"
+              className="flex h-9 items-center justify-center px-4 rounded-full bg-surface-active border border-border-subtle hover:border-border-default text-text-primary text-sm font-medium transition-all"
             >
               Workspace
             </Link>
-          </div>
-        </details>
+          )}
+        </div>
         <div className="flex items-center gap-3 text-text-primary">
           <div className="flex items-center justify-center">
             <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">

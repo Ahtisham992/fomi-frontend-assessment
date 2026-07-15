@@ -25,7 +25,7 @@ const Select = React.forwardRef(({ className, label, options, id, ...props }, re
           {...props}
         >
           {options?.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option key={option.value} value={option.value} className="bg-[#1c1a19] text-white">
               {option.label}
             </option>
           ))}
