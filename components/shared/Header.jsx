@@ -12,6 +12,7 @@ import { useToast } from "@/components/ui/toast";
 import { Menu } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Select } from "@/components/ui/select";
+import Image from "next/image";
 
 export function Header() {
   const pathname = usePathname();
@@ -52,18 +53,7 @@ export function Header() {
         </div>
         <div className="flex items-center gap-3 text-text-primary">
           <div className="flex items-center justify-center">
-            <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="20" cy="20" r="20" fill="var(--accent-default)" fillOpacity="0.15" />
-              <path d="M12 10C12 8.89543 12.8954 8 14 8H28C29.1046 8 30 8.89543 30 10V14C30 15.1046 29.1046 16 28 16H18V20H26C27.1046 20 28 20.8954 28 22V26C28 27.1046 27.1046 28 26 28H18V32C18 33.1046 17.1046 34 16 34H14C12.8954 34 12 33.1046 12 32V10Z" fill="url(#paint0_linear)"/>
-              <path d="M18 16V20H26V16H18Z" fill="white" fillOpacity="0.25"/>
-              <path d="M12 10V32H14V10H12Z" fill="black" fillOpacity="0.15"/>
-              <defs>
-                <linearGradient id="paint0_linear" x1="12" y1="8" x2="30" y2="34" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="var(--accent-default)" />
-                  <stop offset="1" stopColor="var(--accent-hover)" />
-                </linearGradient>
-              </defs>
-            </svg>
+            <Image src="/icon.png" alt="Fomi Logo" width={32} height={32} className="rounded-md" />
           </div>
           <span className="text-xl sm:text-2xl font-semibold tracking-tight font-[family-name:var(--font-outfit)]">Fomi</span>
         </div>

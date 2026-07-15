@@ -226,7 +226,7 @@ export const InteractiveCanvas = React.forwardRef(function InteractiveCanvas({ c
 
   return (
     <div 
-      className="relative flex-1 flex items-center justify-center bg-[#09090b] overflow-hidden p-8"
+      className="relative flex-1 flex items-center justify-center bg-background overflow-hidden p-8"
       onPointerLeave={() => setCursorPos(null)}
     >
       <div 
